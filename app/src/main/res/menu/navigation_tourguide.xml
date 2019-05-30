@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_beranda_tourguide"
+        android:title="Beranda"
+        android:icon="@drawable/beranda">
+    </item>
+
+    <item android:id="@+id/nav_service_tourguide"
+        android:title="Service Tour"
+        android:icon="@drawable/service">
+    </item>
+
+    <item android:id="@+id/nav_pesanan_tourguide"
+        android:title="Pesanan"
+        android:icon="@drawable/pesanan">
+    </item>
+
+    <item android:id="@+id/nav_profil_tourguide"
+        android:title="Profil"
+        android:icon="@drawable/profil">
+    </item>
+
+</menu>
