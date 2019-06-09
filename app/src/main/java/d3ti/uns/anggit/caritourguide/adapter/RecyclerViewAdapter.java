@@ -2,6 +2,7 @@ package d3ti.uns.anggit.caritourguide.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +34,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         holder.nama_tourguide.setText(mData.get(position).getNama_tourguide());
         holder.status_tourguide.setText(mData.get(position).getStatus_tourguide());
         holder.foto_tourguide.setImageResource(mData.get(position).getFoto_tourguide());
+
+        //set klick listener
+
     }
 
     @Override
@@ -48,13 +52,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView nama_tourguide;
         TextView status_tourguide;
         ImageView foto_tourguide;
+        CardView cardView;
 
         public MyViewHolder(View itemView){
             super(itemView);
 
+
             nama_tourguide = (TextView) itemView.findViewById(R.id.nama_tourguide);
             status_tourguide = (TextView) itemView.findViewById(R.id.status_tourguide);
             foto_tourguide = (ImageView) itemView.findViewById(R.id.foto_tourguide);
+            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
         }
     }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetailTourguideFragment">
+    tools:context=".DetailTourguideActivity">
 
     <RelativeLayout
         android:id="@+id/rellay1"
@@ -38,33 +38,22 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15sp"
             android:fontFamily="sans-serif-light"
-            android:textAlignment="center"
             android:text="@string/nama_tourguide"
+            android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="32sp" />
 
 
         <TextView
+            android:id="@+id/tv_status_tourguide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_nama_tourguide"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
-            android:text="@string/tour_guide"
-            android:textAllCaps="true"
+            android:text="Status Tourguide"
             android:textColor="@color/address"
             android:textSize="14sp" />
-
-        <ImageButton
-            android:id="@+id/ib_edit_profil_tourguide"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/circle_blue_sky"
-            android:src="@drawable/ic_edit_white" />
 
     </RelativeLayout>
 
@@ -318,7 +307,6 @@
                 android:paddingBottom="50dp"
                 android:paddingRight="10dp"
                 android:gravity="right">
-
                 <Button
                     android:id="@+id/btn_simpan"
                     android:text="Pesan"

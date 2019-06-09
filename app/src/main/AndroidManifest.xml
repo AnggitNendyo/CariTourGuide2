@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".EditServiceTourguideActivity"></activity>
+        <activity android:name=".EditProfilWisatawanActivity" />
+        <activity android:name=".EditProfilTourguideActivity" />
+        <activity android:name=".DetailTourguideActivity" />
+        <activity android:name=".DetailPemesananTourguideActivity" />
+        <activity android:name=".DetailPemesananWisatawanActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".MainActivityTourguide" />
         <activity android:name=".HomeActivity">
             <intent-filter>
