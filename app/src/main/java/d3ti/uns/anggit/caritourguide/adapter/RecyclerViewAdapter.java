@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import d3ti.uns.anggit.caritourguide.DaftarTourguide;
+import d3ti.uns.anggit.caritourguide.view.activity.DaftarTourguide;
 import d3ti.uns.anggit.caritourguide.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {

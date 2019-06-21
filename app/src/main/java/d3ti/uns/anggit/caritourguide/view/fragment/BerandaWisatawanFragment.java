@@ -1,4 +1,4 @@
-package d3ti.uns.anggit.caritourguide;
+package d3ti.uns.anggit.caritourguide.view.fragment;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import d3ti.uns.anggit.caritourguide.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginWisatawanFragment extends Fragment {
+public class BerandaWisatawanFragment extends Fragment {
 
 
-    public LoginWisatawanFragment() {
+    public BerandaWisatawanFragment() {
         // Required empty public constructor
     }
 
@@ -23,11 +25,7 @@ public class LoginWisatawanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login_wisatawan, container, false);
-
-
-
-        return view;
+        return inflater.inflate(R.layout.fragment_beranda_wisatawan, container, false);
     }
 
 }

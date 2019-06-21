@@ -1,4 +1,4 @@
-package d3ti.uns.anggit.caritourguide;
+package d3ti.uns.anggit.caritourguide.view.activity;
 
 public class DaftarTourguide {
     private String nama_tourguide;

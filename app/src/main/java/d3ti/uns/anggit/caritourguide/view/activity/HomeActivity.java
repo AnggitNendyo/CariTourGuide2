@@ -1,4 +1,4 @@
-package d3ti.uns.anggit.caritourguide;
+package d3ti.uns.anggit.caritourguide.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.adapter.HomeViewPagerAdapter;
 
 
@@ -14,6 +15,8 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView ivLogo;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

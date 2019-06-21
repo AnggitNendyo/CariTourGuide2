@@ -3,6 +3,7 @@
     package="d3ti.uns.anggit.caritourguide">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -10,16 +11,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".EditServiceTourguideActivity"></activity>
-        <activity android:name=".EditProfilWisatawanActivity" />
-        <activity android:name=".EditProfilTourguideActivity" />
-        <activity android:name=".DetailTourguideActivity" />
-        <activity android:name=".DetailPemesananTourguideActivity" />
-        <activity android:name=".DetailPemesananWisatawanActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MainActivityTourguide" />
-        <activity android:name=".HomeActivity">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".view.activity.RegisterWisatawanActivity"></activity>
+        <activity android:name=".view.activity.EditServiceTourguideActivity" />
+        <activity android:name=".view.activity.EditProfilWisatawanActivity" />
+        <activity android:name=".view.activity.EditProfilTourguideActivity" />
+        <activity android:name=".view.activity.DetailTourguideActivity" />
+        <activity android:name=".view.activity.DetailPemesananTourguideActivity" />
+        <activity android:name=".view.activity.DetailPemesananWisatawanActivity" />
+        <activity android:name=".view.activity.MainActivity" />
+        <activity android:name=".view.activity.MainActivityTourguide" />
+        <activity android:name=".view.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

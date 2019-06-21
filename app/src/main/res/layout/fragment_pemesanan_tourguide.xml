@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
     android:orientation="vertical"
-    tools:context=".PemesananTourguideFragment">
+    tools:context=".view.fragment.PemesananTourguideFragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list_pemesanan_tourguide"
+        android:clickable="true"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"

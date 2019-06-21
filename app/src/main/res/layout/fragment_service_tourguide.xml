@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/background_gradient"
-    tools:context=".ServiceTourguideFragment">
+    tools:context=".view.fragment.ServiceTourguideFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

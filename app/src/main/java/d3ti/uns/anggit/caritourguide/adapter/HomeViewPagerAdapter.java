@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import d3ti.uns.anggit.caritourguide.LoginTourguideFragment;
-import d3ti.uns.anggit.caritourguide.LoginWisatawanFragment;
+import d3ti.uns.anggit.caritourguide.view.fragment.LoginTourguideFragment;
+import d3ti.uns.anggit.caritourguide.view.fragment.LoginWisatawanFragment;
 import d3ti.uns.anggit.caritourguide.R;
 
 

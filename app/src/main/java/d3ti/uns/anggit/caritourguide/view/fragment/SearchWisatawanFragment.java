@@ -1,4 +1,4 @@
-package d3ti.uns.anggit.caritourguide;
+package d3ti.uns.anggit.caritourguide.view.fragment;
 
 
 import android.os.Bundle;
@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.adapter.RecyclerViewAdapter;
+import d3ti.uns.anggit.caritourguide.view.activity.DaftarTourguide;
 
 public class SearchWisatawanFragment extends Fragment {
 

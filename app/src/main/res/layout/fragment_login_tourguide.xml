@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".LoginTourguideFragment">
+    tools:context=".view.fragment.LoginTourguideFragment">
 
     <LinearLayout
         android:layout_marginTop="5dp"
@@ -53,15 +53,24 @@
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_login_tourguide"
-            android:textColor="#FFF"
-            android:background="@drawable/rec_gradient_orange"
-            android:layout_marginTop="20dp"
-            android:textAllCaps="false"
-            android:text="@string/login"
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_login_tourguide"
+                android:clickable="true"
+                android:textColor="#FFF"
+                android:background="@drawable/rec_gradient_green"
+                android:layout_marginTop="15dp"
+                android:textAllCaps="false"
+                android:text="@string/login"
+                android:textSize="18dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

@@ -1,7 +1,9 @@
-package d3ti.uns.anggit.caritourguide;
+package d3ti.uns.anggit.caritourguide.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import d3ti.uns.anggit.caritourguide.R;
 
 public class DetailPemesananWisatawanActivity extends AppCompatActivity {
 
