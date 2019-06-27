@@ -10,7 +10,7 @@ public class ApiService {
 
     public static Retrofit getClient() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.25/caritourguide/Api/")
+                .baseUrl("http://10.60.196.70/caritourguide/Api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit;

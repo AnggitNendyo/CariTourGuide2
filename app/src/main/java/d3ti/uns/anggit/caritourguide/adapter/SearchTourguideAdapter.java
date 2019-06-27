@@ -15,11 +15,11 @@ import java.util.List;
 import d3ti.uns.anggit.caritourguide.view.activity.DaftarTourguide;
 import d3ti.uns.anggit.caritourguide.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class SearchTourguideAdapter extends RecyclerView.Adapter<SearchTourguideAdapter.MyViewHolder> {
     private Context mContext;
     private List<DaftarTourguide> mData;
 
-    public RecyclerViewAdapter(Context mContext, List<DaftarTourguide> mData) {
+    public SearchTourguideAdapter(Context mContext, List<DaftarTourguide> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }

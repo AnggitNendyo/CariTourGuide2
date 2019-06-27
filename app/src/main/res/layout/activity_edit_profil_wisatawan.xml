@@ -31,6 +31,7 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -280,7 +281,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:paddingBottom="50dp"
+                android:paddingBottom="0dp"
                 android:gravity="center_horizontal">
 
                 <Button
@@ -290,8 +291,8 @@
                     android:textAllCaps="false"
                     android:textSize="20dp"
                     android:layout_marginEnd="50dp"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/rec_gradient_warning"/>
                 <Button
                     android:id="@+id/btn_simpan"
@@ -299,8 +300,8 @@
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
                     android:textSize="20dp"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="45dp"
                     android:background="@drawable/rec_gradient_green" />
             </LinearLayout>
 

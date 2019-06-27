@@ -8,17 +8,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import d3ti.uns.anggit.caritourguide.R;
-import d3ti.uns.anggit.caritourguide.adapter.RecyclerViewAdapter;
+import d3ti.uns.anggit.caritourguide.adapter.SearchTourguideAdapter;
+import d3ti.uns.anggit.caritourguide.data.ApiInterface;
+import d3ti.uns.anggit.caritourguide.data.ApiService;
 import d3ti.uns.anggit.caritourguide.view.activity.DaftarTourguide;
 
 public class SearchWisatawanFragment extends Fragment {
-
+    ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
     List<DaftarTourguide> tourguides;
+    ImageView foto_tourguide;
+    TextView nama_tourguide;
+    TextView status_tourguide;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search_wisatawan, container, false);
@@ -45,7 +53,7 @@ public class SearchWisatawanFragment extends Fragment {
 
 
         RecyclerView rvTourguide = (RecyclerView)view.findViewById(R.id.rv_search_tourguide);
-        RecyclerViewAdapter rvAdapter = new RecyclerViewAdapter(getContext(), tourguides);
+        SearchTourguideAdapter rvAdapter = new SearchTourguideAdapter(getContext(), tourguides);
         rvTourguide.setLayoutManager(new GridLayoutManager(getContext(), 3));
         rvTourguide.setAdapter(rvAdapter);
         return view;
