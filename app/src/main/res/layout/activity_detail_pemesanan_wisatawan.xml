@@ -37,12 +37,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/foto_tourguide"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15sp"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="5sp"
             android:fontFamily="sans-serif-light"
             android:textAlignment="center"
-            android:text="@string/nama_tourguide"
+            android:text="Anggit Nendyo Yogantoro"
             android:textColor="@color/colorWhite"
-            android:textSize="32sp" />
+            android:textSize="18sp" />
 
 
     </RelativeLayout>

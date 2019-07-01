@@ -10,52 +10,75 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.adapter.SearchTourguideAdapter;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
+import d3ti.uns.anggit.caritourguide.model.SearchTourguideItems;
+import d3ti.uns.anggit.caritourguide.model.SearchTourguideResponse;
 import d3ti.uns.anggit.caritourguide.view.activity.DaftarTourguide;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchWisatawanFragment extends Fragment {
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
-    List<DaftarTourguide> tourguides;
-    ImageView foto_tourguide;
-    TextView nama_tourguide;
-    TextView status_tourguide;
+    List<SearchTourguideItems> searchTourguideItems = new ArrayList<>();
+    private View view;
+
+    RecyclerView rvTourguide;
+
+    SearchTourguideAdapter rvAdapter;
 
 
+    public SearchWisatawanFragment() {
+        // Required empty public constructor
+    }
+    
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_wisatawan, container, false);
+        view = inflater.inflate(R.layout.fragment_search_wisatawan, container, false);
+            
+        rvTourguide = (RecyclerView)view.findViewById(R.id.rv_search_tourguide);
 
-        tourguides = new ArrayList<>();
-        tourguides.add(new DaftarTourguide("Anggit Nendyo", "anggitnendyo9@gmail.com","aktif", R.drawable.foto3,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 2", "anggitnendyo9@gmail.com","aktif", R.drawable.nisa,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 3", "anggitnendyo9@gmail.com", "aktif", R.drawable.putri,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 4", "anggitnendyo9@gmail.com", "aktif", R.drawable.foto3,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 5", "anggitnendyo9@gmail.com", "aktif", R.drawable.nisa,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 6", "anggitnendyo9@gmail.com","aktif",  R.drawable.putri,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 7", "anggitnendyo9@gmail.com","aktif", R.drawable.foto3,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 8", "anggitnendyo9@gmail.com","aktif", R.drawable.nisa,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 9", "anggitnendyo9@gmail.com", "aktif", R.drawable.putri,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 10", "anggitnendyo9@gmail.com", "aktif", R.drawable.foto3,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 11", "anggitnendyo9@gmail.com", "aktif", R.drawable.nisa,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 12", "anggitnendyo9@gmail.com","aktif",  R.drawable.putri,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 13", "anggitnendyo9@gmail.com","aktif", R.drawable.foto3,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 14", "anggitnendyo9@gmail.com","aktif", R.drawable.nisa,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 15", "anggitnendyo9@gmail.com", "aktif", R.drawable.putri,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 16", "anggitnendyo9@gmail.com", "aktif", R.drawable.foto3,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 17", "anggitnendyo9@gmail.com", "aktif", R.drawable.nisa,"100000","Solo","Saya tourguide"));
-        tourguides.add(new DaftarTourguide("Tour Guide 18", "anggitnendyo9@gmail.com","aktif",  R.drawable.putri,"100000","Solo","Saya tourguide"));
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        rvTourguide.setHasFixedSize(true);
+        rvTourguide.setLayoutManager(layoutManager);
 
-
-        RecyclerView rvTourguide = (RecyclerView)view.findViewById(R.id.rv_search_tourguide);
-        SearchTourguideAdapter rvAdapter = new SearchTourguideAdapter(getContext(), tourguides);
-        rvTourguide.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        rvTourguide.setAdapter(rvAdapter);
+        loadData();
         return view;
+    }
+
+    private void loadData() {
+        apiInterface.getSearchTourguide().enqueue(new Callback<SearchTourguideResponse>() {
+            @Override
+
+            public void onResponse(Call<SearchTourguideResponse> call, Response<SearchTourguideResponse> response) {
+                try{
+                    if (response.isSuccessful()){
+                        searchTourguideItems = response.body().getResult();
+                        rvAdapter = new SearchTourguideAdapter(getContext(), searchTourguideItems, Glide.with(getActivity()));
+                        rvTourguide.setAdapter(rvAdapter);
+
+                    }else {
+                        Toast.makeText(getActivity(), "Mengambil Data Gagal !", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchTourguideResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }

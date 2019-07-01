@@ -37,9 +37,9 @@ public class PemesananWisatawanFragment extends Fragment {
     protected int[] mDataset1;
 
     int [] foto_tourguide = {R.drawable.foto3, R.drawable.nisa,R.drawable.putri};
-    String [] nama_tourguide = {"Anggit Nendyo","Anggit Nendyo","Anggit Nendyo"};
-    String [] harga_tourguide = {"50000","50000","50000"};
-    String [] status_pemesanan = {"selesai","selesai","cancel"};
+    String [] nama_tourguide = {"Anggit Nendyo","Annisa Radya","Putri Wulandari"};
+    String [] harga_tourguide = {"100000","100000","100000"};
+    String [] status_pemesanan = {"disetujui","selesai","ditolak"};
 
 
     @Override

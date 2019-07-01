@@ -9,8 +9,7 @@ public class DaftarTourguide {
     private String kota_tourguide;
     private String deskripsi_tourguide;
 
-
-    public DaftarTourguide(String nama_tourguide, String email_tourguide, String status_tourguide,int foto_tourguide, String harga_tourguide, String kota_tourguide, String deskripsi_tourguide) {
+    public DaftarTourguide(String nama_tourguide, String email_tourguide, String status_tourguide, int foto_tourguide, String harga_tourguide, String kota_tourguide, String deskripsi_tourguide) {
         this.nama_tourguide = nama_tourguide;
         this.email_tourguide = email_tourguide;
         this.status_tourguide = status_tourguide;
@@ -19,6 +18,7 @@ public class DaftarTourguide {
         this.kota_tourguide = kota_tourguide;
         this.deskripsi_tourguide = deskripsi_tourguide;
     }
+
     public String getNama_tourguide() {
         return nama_tourguide;
     }
@@ -75,4 +75,6 @@ public class DaftarTourguide {
     public void setDeskripsi_tourguide(String deskripsi_tourguide) {
         this.deskripsi_tourguide = deskripsi_tourguide;
     }
+
+
 }

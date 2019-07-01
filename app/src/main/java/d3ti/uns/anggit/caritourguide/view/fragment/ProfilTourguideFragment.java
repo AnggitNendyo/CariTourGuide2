@@ -26,6 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static d3ti.uns.anggit.caritourguide.BuildConfig.BASE_URL;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +71,7 @@ public class ProfilTourguideFragment extends Fragment implements View.OnClickLis
                 try {
                     if (response.isSuccessful()) {
                         List<ProfilTourguideItems>profilTourguideItems = response.body().getResult();
-                        Glide.with(view).load("http://192.168.43.25/caritourguide/assets/img/foto_tourguide/" + response.body().getResult().get(0).getFotoTourguide()).into(iv_foto_tourguide);
+                        Glide.with(view).load(BASE_URL + "caritourguide/assets/img/foto_tourguide/" + response.body().getResult().get(0).getFotoTourguide()).into(iv_foto_tourguide);
                         tv_nama_tourguide.setText(profilTourguideItems.get(0).getNamaTourguide());
                         tv_email_tourguide.setText(profilTourguideItems.get(0).getEmailTourguide());
                         tv_notelp_tourguide.setText(profilTourguideItems.get(0).getNotelpTourguide());
