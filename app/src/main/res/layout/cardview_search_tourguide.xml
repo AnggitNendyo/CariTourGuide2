@@ -15,9 +15,9 @@
 
         <ImageView
             android:id="@+id/foto_tourguide"
-            android:layout_width="130dp"
+            android:layout_width="match_parent"
             android:scaleType="centerCrop"
-            android:layout_height="130dp"
+            android:layout_height="match_parent"
 
             android:background="@color/colorWhite"/>
 
