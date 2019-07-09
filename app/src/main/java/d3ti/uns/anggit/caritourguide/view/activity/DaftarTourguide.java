@@ -1,5 +1,7 @@
 package d3ti.uns.anggit.caritourguide.view.activity;
 
+import android.widget.Button;
+
 public class DaftarTourguide {
     private String nama_tourguide;
     private String email_tourguide;

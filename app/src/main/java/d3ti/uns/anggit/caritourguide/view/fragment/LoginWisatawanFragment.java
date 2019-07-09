@@ -15,6 +15,8 @@ import android.widget.Toast;
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
+import d3ti.uns.anggit.caritourguide.data.SessionManager;
+import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.LoginWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.view.activity.MainActivity;
 import d3ti.uns.anggit.caritourguide.view.activity.RegisterWisatawanActivity;
@@ -27,12 +29,14 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class LoginWisatawanFragment extends Fragment implements View.OnClickListener {
+    //SessionManager sessionManager;
     Button btnLoginWisatawan;
     Button btnRegisterWisatawan;
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
     private EditText etEmailWisatawan;
     private EditText etPasswordWisatawan;
     private View view;
+    private SharedPrefManager sharedPrefManager;
 
     public LoginWisatawanFragment() {
         // Required empty public constructor
@@ -41,9 +45,11 @@ public class LoginWisatawanFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        //sessionManager = new SessionManager(getActivity());
+
         view = inflater.inflate(R.layout.fragment_login_wisatawan, container, false);
         initView();
+        sharedPrefManager = new SharedPrefManager(getContext());
         return view;
     }
 
@@ -60,7 +66,7 @@ public class LoginWisatawanFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login_wisatawan:
-                String email = etEmailWisatawan.getText().toString();
+                final String email = etEmailWisatawan.getText().toString();
                 String password = etPasswordWisatawan.getText().toString();
                 if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
                     Toast.makeText(getActivity(), "Email / Password Masih Kosong !", Toast.LENGTH_SHORT).show();
@@ -75,6 +81,11 @@ public class LoginWisatawanFragment extends Fragment implements View.OnClickList
                                         Toast.makeText(getActivity(), "Kesalahan Server !", Toast.LENGTH_SHORT).show();
                                     } else {
                                         if (TextUtils.equals(respon, "Login Berhasil")) {
+                                            sharedPrefManager.saveSPString(sharedPrefManager.SP_EMAIL,email);
+                                            sharedPrefManager.saveSPString(sharedPrefManager.SP_NAMA_USER,response.body().getResult().get(0).getNamaWisatawan());
+                                            sharedPrefManager.saveSPBoolean(sharedPrefManager.SP_SUDAH_LOGIN,true);
+                                            sharedPrefManager.saveSPString(sharedPrefManager.SP_KET_LOGIN,"wisatawan");
+
                                             Toast.makeText(getActivity(), "Login Berhasil !", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getActivity(), MainActivity.class);
                                             getActivity().startActivity(intent);

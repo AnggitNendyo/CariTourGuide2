@@ -22,6 +22,7 @@
             android:background="@drawable/circle_border">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_foto_tourguide"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_margin="9dp"
@@ -83,11 +84,36 @@
                     android:textColor="@color/headings"
                     android:textSize="13sp" />
                 <TextView
-                    android:id="@+id/tv_alamat_tourguide"
+                    android:id="@+id/tv_kota_tourguide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="Surakarta"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/grey" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Tourguide"
+                    android:textColor="@color/headings"
+                    android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tv_alamat_tourguide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Jebres, Surakarta"
                     android:textColor="#000000"
                     android:textSize="18sp" />
                 <View
@@ -286,7 +312,7 @@
                     android:textColor="@color/headings"
                     android:textSize="13sp" />
                 <TextView
-                    android:id="@+id/tv_deskripsi_tour"
+                    android:id="@+id/tv_deskripsi_tourguide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
@@ -309,7 +335,7 @@
                 android:paddingRight="10dp"
                 android:gravity="right">
                 <Button
-                    android:id="@+id/btn_simpan"
+                    android:id="@+id/btn_pesan"
                     android:text="Pesan"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"

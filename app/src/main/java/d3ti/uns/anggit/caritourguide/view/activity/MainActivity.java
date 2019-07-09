@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-
-
                 if (item.getItemId() == R.id.nav_beranda_wisatawan) {
                     fragment = new BerandaWisatawanFragment();
                     FragmentManager fragmentManager = getSupportFragmentManager();

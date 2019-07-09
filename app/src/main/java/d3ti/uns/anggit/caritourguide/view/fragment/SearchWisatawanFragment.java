@@ -8,14 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import d3ti.uns.anggit.caritourguide.R;
@@ -24,7 +21,6 @@ import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
 import d3ti.uns.anggit.caritourguide.model.SearchTourguideItems;
 import d3ti.uns.anggit.caritourguide.model.SearchTourguideResponse;
-import d3ti.uns.anggit.caritourguide.view.activity.DaftarTourguide;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

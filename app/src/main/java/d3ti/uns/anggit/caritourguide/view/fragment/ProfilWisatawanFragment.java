@@ -20,6 +20,7 @@ import java.util.List;
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
+import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanItems;
 import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.view.activity.EditProfilWisatawanActivity;
@@ -44,6 +45,7 @@ public class ProfilWisatawanFragment extends Fragment implements View.OnClickLis
     TextView tv_paspor_wisatawan;
     TextView tv_ktp_wisatawan;
     private View view;
+    SharedPrefManager sharedPrefManager;
 
     public ProfilWisatawanFragment() {
         // Required empty public constructor
@@ -58,12 +60,13 @@ public class ProfilWisatawanFragment extends Fragment implements View.OnClickLis
         ib_edit_profil_wisatawan = view.findViewById(R.id.ib_edit_profil_wisatawan);
         ib_edit_profil_wisatawan.setOnClickListener(this);
         initView();
+        sharedPrefManager = new SharedPrefManager(getContext());
         loadData();
         return view;
     }
 
     private void loadData() {
-        apiInterface.getProfilWisatawan().enqueue(new Callback<ProfilWisatawanResponse>() {
+        apiInterface.getProfilWisatawan(sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ProfilWisatawanResponse>() {
             @Override
             public void onResponse(Call<ProfilWisatawanResponse> call, Response<ProfilWisatawanResponse> response) {
                 try {

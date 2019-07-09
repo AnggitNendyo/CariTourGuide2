@@ -1,5 +1,6 @@
 package d3ti.uns.anggit.caritourguide.data;
 
+import d3ti.uns.anggit.caritourguide.model.BookingTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.ProfilTourguideResponse;
@@ -12,7 +13,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -39,8 +39,18 @@ public interface ApiInterface {
             @Field("nama") String nama
     );
 
+    @FormUrlEncoded
+    @POST("pemesanan_wisatawan")
+    Call<BookingTourguideResponse> bookingWisatawan(
+            @Field("tanggal_pemesanan") String tanggal_pemesanan,
+            @Field("jam_pemesanan") String jam_pemesanan,
+            @Field("lokasi_temu") String lokasi_temu,
+            @Field("email_wisatawan") String email_wisatawan,
+            @Field("id_tourguide") String id_tourguide
+    );
+
     @GET("profil_wisatawan")
-    Call<ProfilWisatawanResponse> getProfilWisatawan();
+    Call<ProfilWisatawanResponse> getProfilWisatawan(@Query("email") String email);
 
     @GET("profil_tourguide")
     Call<ProfilTourguideResponse> getProfilTourguide();

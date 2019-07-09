@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activity.RegisterWisatawanActivity"></activity>
+        <activity android:name=".view.activity.BookingTourguideActivity"></activity>
+        <activity android:name=".view.activity.RegisterWisatawanActivity" />
         <activity android:name=".view.activity.EditServiceTourguideActivity" />
         <activity android:name=".view.activity.EditProfilWisatawanActivity" />
         <activity android:name=".view.activity.EditProfilTourguideActivity" />
