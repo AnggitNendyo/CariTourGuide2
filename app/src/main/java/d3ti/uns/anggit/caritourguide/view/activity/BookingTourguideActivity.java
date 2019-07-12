@@ -94,7 +94,6 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
-
             case R.id.et_waktu_tour:
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
@@ -109,7 +108,6 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
                 break;
-
             case R.id.btn_booking_tourguide:
                 String tanggal_tour = et_tgl_tour.getText().toString();
                 String waktu_tour = et_waktu_tour.getText().toString();

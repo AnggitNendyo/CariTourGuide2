@@ -3,6 +3,8 @@ package d3ti.uns.anggit.caritourguide.data;
 import d3ti.uns.anggit.caritourguide.model.BookingTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginWisatawanResponse;
+import d3ti.uns.anggit.caritourguide.model.PemesananTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.PemesananWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.ProfilTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.RegisterWisatawanResponse;
@@ -53,7 +55,7 @@ public interface ApiInterface {
     Call<ProfilWisatawanResponse> getProfilWisatawan(@Query("email") String email);
 
     @GET("profil_tourguide")
-    Call<ProfilTourguideResponse> getProfilTourguide();
+    Call<ProfilTourguideResponse> getProfilTourguide(@Query("email") String email);
 
     @GET("servis_tourguide")
     Call<ServiceTourguideResponse> getServiceTourguide(@Query("id") String id);
@@ -61,5 +63,9 @@ public interface ApiInterface {
     @GET("tourguide")
     Call<SearchTourguideResponse> getSearchTourguide();
 
+    @GET("pemesanan_wisatawan")
+    Call<PemesananWisatawanResponse> getPemesananWisatawan(@Query("email") String email);
 
+    @GET("pemesanan_tourguide")
+    Call<PemesananTourguideResponse> getPemesananTourguide(@Query("email") String email);
 }

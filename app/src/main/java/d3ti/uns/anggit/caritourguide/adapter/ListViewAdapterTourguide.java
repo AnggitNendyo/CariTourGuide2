@@ -1,5 +1,8 @@
 package d3ti.uns.anggit.caritourguide.adapter;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,90 +11,73 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.RequestManager;
+
+import java.util.List;
+
 import d3ti.uns.anggit.caritourguide.R;
+import d3ti.uns.anggit.caritourguide.model.PemesananItemT;
+import d3ti.uns.anggit.caritourguide.model.PemesananItemW;
 
-public class ListViewAdapterTourguide extends RecyclerView.Adapter<ListViewAdapterTourguide.ViewHolder> {
-    private static final String TAG = "ListViewGuide";
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+import static d3ti.uns.anggit.caritourguide.BuildConfig.BASE_URL;
 
-    private int[] mDataSet1;
-    private String[] mDataSet2,mDataSet3,mDataSet4;
+public class ListViewAdapterTourguide extends RecyclerView.Adapter<ListViewAdapterTourguide.ViewHolderPemesananTourguide> {
+    private Context mContext;
+    private List<PemesananItemT> mData;
+    private RequestManager requestManager;
 
-    // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
-    /**
-     * Provide a reference to the type of views that you are using (custom ViewHolder)
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView tv_nama_wisatawan,tv_tanggal_tour,tv_status_pemesanan;
-        private final ImageView foto_wisatawan;
-
-        public ViewHolder(View view) {
-            super(view);
-            // Define click listener for the ViewHolder's View.
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(TAG, "Element " + getPosition() + " clicked.");
-                }
-            });
-            foto_wisatawan = (ImageView) view.findViewById(R.id.foto_wisatawan);
-            tv_nama_wisatawan = (TextView) view.findViewById(R.id.tv_nama_wisatawan);
-            tv_tanggal_tour = (TextView) view.findViewById(R.id.tv_tanggal_tour);
-            tv_status_pemesanan = (TextView) view.findViewById(R.id.tv_status_pemesanan_tourguide);
-        }
-
-        public ImageView getFoto_wisatawan() {
-            return foto_wisatawan;
-        }
-        public TextView getTv_nama_wisatawan() {return tv_nama_wisatawan;}
-        public TextView getTv_tanggal_tour() {return tv_tanggal_tour;}
-        public TextView getStatus_pemesanan() {
-            return tv_status_pemesanan;
-        }
-    }
-    // END_INCLUDE(recyclerViewSampleViewHolder)
-
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet1 String[] containing the data to populate views to be used by RecyclerView.
-     */
-
-    public ListViewAdapterTourguide(int[]dataSet1, String[]dataSet2, String[]dataSet3, String[]dataSet4) {
-        this.mDataSet1 = dataSet1;
-        this.mDataSet2 = dataSet2;
-        this.mDataSet3 = dataSet3;
-        this.mDataSet4 = dataSet4;
+    public ListViewAdapterTourguide(Context mContext, List<PemesananItemT>mData, RequestManager requestManager){
+        this.mContext = mContext;
+        this.mData = mData;
+        this.requestManager = requestManager;
     }
 
-    // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
-    // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.lv_pemesanan_tourguide, viewGroup, false);
+    public ViewHolderPemesananTourguide onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view;
+        LayoutInflater mInflater = LayoutInflater.from(mContext);
+        view = mInflater.inflate(R.layout.lv_pemesanan_tourguide, viewGroup, false);
 
-        return new ViewHolder(view);
+        final ViewHolderPemesananTourguide viewHolderPemesananTourguide = new ViewHolderPemesananTourguide(view);
+        return viewHolderPemesananTourguide;
     }
-    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
-    // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Log.d(TAG, "Element " + position + " set.");
-
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
-        viewHolder.getFoto_wisatawan().setImageResource(mDataSet1[position]);
-        viewHolder.getTv_nama_wisatawan().setText(mDataSet2[position]);
-        viewHolder.getTv_tanggal_tour().setText(mDataSet3[position]);
-        viewHolder.getStatus_pemesanan().setText(mDataSet4[position]);
+    public void onBindViewHolder(@NonNull ViewHolderPemesananTourguide viewHolderPemesananTourguide, int i) {
+        try {
+            viewHolderPemesananTourguide.nama_wisatawan.setText(mData.get(i).getNamaWisatawan());
+            viewHolderPemesananTourguide.status_pemesanan.setText(mData.get(i).getStatusPemesanan());
+            viewHolderPemesananTourguide.tanggal_tour.setText(mData.get(i).getTanggalPemesanan());
+            requestManager.load(BASE_URL + "caritourguide/assets/img/foto_wisatawan/" + mData.get(i).getFotoWisatawan()).into(viewHolderPemesananTourguide.foto_wisatawan);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
-    // END_INCLUDE(recyclerViewOnBindViewHolder)
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet1.length;
+        if(mData.isEmpty()){
+            return 0;
+        }
+        return mData.size();
+    }
+
+    public static class ViewHolderPemesananTourguide extends RecyclerView.ViewHolder {
+        TextView nama_wisatawan;
+        TextView status_pemesanan;
+        TextView tanggal_tour;
+        ImageView foto_wisatawan;
+        CardView cardView;
+
+        public ViewHolderPemesananTourguide(View itemView) {
+            super(itemView);
+            nama_wisatawan = (TextView) itemView.findViewById(R.id.tv_nama_wisatawan);
+            status_pemesanan = (TextView) itemView.findViewById(R.id.tv_status_pemesanan_tourguide);
+            tanggal_tour = (TextView)itemView.findViewById(R.id.tv_tanggal_tour);
+            foto_wisatawan = (ImageView) itemView.findViewById(R.id.foto_wisatawan);
+            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
+        }
     }
 }

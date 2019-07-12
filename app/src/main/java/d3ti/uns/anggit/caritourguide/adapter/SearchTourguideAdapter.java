@@ -69,8 +69,6 @@ public class SearchTourguideAdapter extends RecyclerView.Adapter<SearchTourguide
         holder.nama_tourguide.setText(mData.get(position).getNamaTourguide());
         holder.status_tourguide.setText(mData.get(position).getStatusTourguide());
         requestManager.load(BASE_URL + "caritourguide/assets/img/foto_tourguide/" + mData.get(position).getFotoTourguide()).into(holder.foto_tourguide);
-
-
     }
 
     @Override

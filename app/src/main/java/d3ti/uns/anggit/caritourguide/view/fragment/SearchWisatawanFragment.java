@@ -31,9 +31,7 @@ public class SearchWisatawanFragment extends Fragment {
     private View view;
 
     RecyclerView rvTourguide;
-
     SearchTourguideAdapter rvAdapter;
-
 
     public SearchWisatawanFragment() {
         // Required empty public constructor
@@ -60,7 +58,8 @@ public class SearchWisatawanFragment extends Fragment {
                 try{
                     if (response.isSuccessful()){
                         searchTourguideItems = response.body().getResult();
-                        rvAdapter = new SearchTourguideAdapter(getContext(), searchTourguideItems, Glide.with(getActivity()));
+                        rvAdapter = new SearchTourguideAdapter(getContext(), searchTourguideItems,
+                                Glide.with(getActivity()));
                         rvTourguide.setAdapter(rvAdapter);
 
                     }else {

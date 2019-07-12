@@ -16,7 +16,10 @@ import android.widget.Toast;
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
+import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.LoginTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.LoginWisatawanResponse;
+import d3ti.uns.anggit.caritourguide.view.activity.MainActivity;
 import d3ti.uns.anggit.caritourguide.view.activity.MainActivityTourguide;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +34,7 @@ public class LoginTourguideFragment extends Fragment implements View.OnClickList
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
     private EditText etEmailTourguide;
     private EditText etPasswordTourguide;
+    private SharedPrefManager sharedPrefManager;
     private View view;
 
     public LoginTourguideFragment() {
@@ -44,6 +48,7 @@ public class LoginTourguideFragment extends Fragment implements View.OnClickList
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_login_tourguide, container, false);
         initView();
+        sharedPrefManager = new SharedPrefManager(getContext());
         return view;
     }
 
@@ -51,12 +56,10 @@ public class LoginTourguideFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login_tourguide:
-                String email = etEmailTourguide.getText().toString();
+                final String email = etEmailTourguide.getText().toString();
                 String password = etPasswordTourguide.getText().toString();
                 if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
-
                     Toast.makeText(getActivity(), "Email / Password Masih Kosong !", Toast.LENGTH_SHORT).show();
-
                 } else {
                     apiInterface.loginTourGuide(email, password).enqueue(new Callback<LoginTourguideResponse>() {
                         @Override
@@ -64,11 +67,15 @@ public class LoginTourguideFragment extends Fragment implements View.OnClickList
                             try {
                                 if (response.isSuccessful()) {
                                     String respon = response.body().getResult().get(0).getStatus();
-
                                     if (TextUtils.isEmpty(respon)) {
                                         Toast.makeText(getActivity(), "Kesalahan Server !", Toast.LENGTH_SHORT).show();
                                     } else {
                                         if (TextUtils.equals(respon, "Login Berhasil")) {
+                                            sharedPrefManager.saveSPString(sharedPrefManager.SP_EMAIL,email);
+                                            sharedPrefManager.saveSPString(sharedPrefManager.SP_NAMA_USER,response.body().getResult().get(0).getNamaTourguide());
+                                            sharedPrefManager.saveSPBoolean(sharedPrefManager.SP_SUDAH_LOGIN,true);
+                                            sharedPrefManager.saveSPString(sharedPrefManager.SP_KET_LOGIN,"tourguide");
+
                                             Toast.makeText(getActivity(), "Login Berhasil !", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getActivity(), MainActivityTourguide.class);
                                             getActivity().startActivity(intent);
@@ -77,11 +84,9 @@ public class LoginTourguideFragment extends Fragment implements View.OnClickList
                                         }
                                     }
                                 }
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-
                         }
                         @Override
                         public void onFailure(Call<LoginTourguideResponse> call, Throwable t) {

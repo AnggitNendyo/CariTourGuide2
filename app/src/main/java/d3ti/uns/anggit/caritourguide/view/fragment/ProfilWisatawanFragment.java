@@ -65,8 +65,8 @@ public class ProfilWisatawanFragment extends Fragment implements View.OnClickLis
         return view;
     }
 
-    private void loadData() {
-        apiInterface.getProfilWisatawan(sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ProfilWisatawanResponse>() {
+    private void loadData() { apiInterface.getProfilWisatawan
+            (sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ProfilWisatawanResponse>() {
             @Override
             public void onResponse(Call<ProfilWisatawanResponse> call, Response<ProfilWisatawanResponse> response) {
                 try {

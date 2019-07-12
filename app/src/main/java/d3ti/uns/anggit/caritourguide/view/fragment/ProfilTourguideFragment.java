@@ -19,6 +19,7 @@ import java.util.List;
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
+import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.ProfilTourguideItems;
 import d3ti.uns.anggit.caritourguide.model.ProfilTourguideResponse;
 import d3ti.uns.anggit.caritourguide.view.activity.EditProfilTourguideActivity;
@@ -44,6 +45,7 @@ public class ProfilTourguideFragment extends Fragment implements View.OnClickLis
     TextView tv_jenis_kelamin;
     TextView tv_umur_tourguide;
     TextView tv_ktp_tourguide;
+    SharedPrefManager sharedPrefManager;
     private View view;
 
     public ProfilTourguideFragment() {
@@ -60,12 +62,13 @@ public class ProfilTourguideFragment extends Fragment implements View.OnClickLis
         ib_edit_profil_tourguide = view.findViewById(R.id.ib_edit_profil_tourguide);
         ib_edit_profil_tourguide.setOnClickListener(this);
         initView();
+        sharedPrefManager = new SharedPrefManager(getContext());
         loadData();
         return view;
     }
 
     private void loadData() {
-        apiInterface.getProfilTourguide().enqueue(new Callback<ProfilTourguideResponse>() {
+        apiInterface.getProfilTourguide(sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ProfilTourguideResponse>() {
             @Override
             public void onResponse(Call<ProfilTourguideResponse> call, Response<ProfilTourguideResponse> response) {
                 try {
