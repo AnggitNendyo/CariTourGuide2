@@ -17,6 +17,7 @@ import java.util.List;
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
+import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.BahasaItem;
 import d3ti.uns.anggit.caritourguide.model.HariItem;
 import d3ti.uns.anggit.caritourguide.model.ServiceTourguideItems;
@@ -43,7 +44,7 @@ public class ServiceTourguideFragment extends Fragment implements View.OnClickLi
     TextView tv_bahasa_tourguide;
     TextView tv_deskripsi_tourguide;
     private View view;
-
+    SharedPrefManager sharedPrefManager;
 
     public ServiceTourguideFragment() {
         // Required empty public constructor
@@ -58,13 +59,15 @@ public class ServiceTourguideFragment extends Fragment implements View.OnClickLi
 
         ib_edit_service_tour = view.findViewById(R.id.ib_edit_service_tour);
         ib_edit_service_tour.setOnClickListener(this);
+        sharedPrefManager = new SharedPrefManager(getContext());
+
         initView();
         loadData();
         return view;
     }
 
     private void loadData() {
-        apiInterface.getServiceTourguide("4").enqueue(new Callback<ServiceTourguideResponse>() {
+        apiInterface.getServiceTourguide(sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ServiceTourguideResponse>() {
             @Override
             public void onResponse(Call<ServiceTourguideResponse> call, Response<ServiceTourguideResponse> response) {
                 try {

@@ -1,6 +1,7 @@
 package d3ti.uns.anggit.caritourguide.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import java.util.List;
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.model.PemesananItemT;
 import d3ti.uns.anggit.caritourguide.model.PemesananItemW;
+import d3ti.uns.anggit.caritourguide.view.activity.DetailPemesananTourguideActivity;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 import static d3ti.uns.anggit.caritourguide.BuildConfig.BASE_URL;
@@ -41,6 +43,21 @@ public class ListViewAdapterTourguide extends RecyclerView.Adapter<ListViewAdapt
         view = mInflater.inflate(R.layout.lv_pemesanan_tourguide, viewGroup, false);
 
         final ViewHolderPemesananTourguide viewHolderPemesananTourguide = new ViewHolderPemesananTourguide(view);
+        viewHolderPemesananTourguide.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, DetailPemesananTourguideActivity.class);
+                i.putExtra("id_wisatawan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getIdWisatawan());
+                i.putExtra("nama_wisatawan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getNamaWisatawan());
+              //  i.putExtra("kota_tour", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getIdWisatawan());
+               // i.putExtra("harga_tour", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).get());
+                i.putExtra("lokasi_temu", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getLokasiTemu());
+                i.putExtra("status_pemesanan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getStatusPemesanan());
+                i.putExtra("foto_wisatawan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getFotoWisatawan());
+                mContext.startActivity(i);
+            }
+        });
+
         return viewHolderPemesananTourguide;
     }
 

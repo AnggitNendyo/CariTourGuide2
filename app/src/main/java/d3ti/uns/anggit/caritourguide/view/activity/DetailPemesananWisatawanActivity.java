@@ -14,7 +14,7 @@ import static d3ti.uns.anggit.caritourguide.BuildConfig.BASE_URL;
 
 public class DetailPemesananWisatawanActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tv_nama_tourguide, tv_status_tourguide, tv_kota_tourguide, tv_harga_tourguide, tv_lokasi_temu,
-            tv_tanggal_tour, tv_status_pemesanan;
+            tv_tanggal_tour, tv_status_pemesanan, tv_waktu_tour;
     ImageView iv_foto_tourguide;
     String id_tourguide, nama_tourguide, foto_tourguide, status_tourguide,
     tanggal_tour, status_pemesanan, kota_tourguide, lokasi_temu, harga_tourguide;

@@ -1,6 +1,10 @@
 package d3ti.uns.anggit.caritourguide.data;
 
+import java.util.ArrayList;
+
 import d3ti.uns.anggit.caritourguide.model.BookingTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.EditServisResponse;
+import d3ti.uns.anggit.caritourguide.model.KotaResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.PemesananTourguideResponse;
@@ -10,11 +14,15 @@ import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.RegisterWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.SearchTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.ServiceTourguideResponse;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -58,7 +66,7 @@ public interface ApiInterface {
     Call<ProfilTourguideResponse> getProfilTourguide(@Query("email") String email);
 
     @GET("servis_tourguide")
-    Call<ServiceTourguideResponse> getServiceTourguide(@Query("id") String id);
+    Call<ServiceTourguideResponse> getServiceTourguide(@Query("email") String id);
 
     @GET("tourguide")
     Call<SearchTourguideResponse> getSearchTourguide();
@@ -68,4 +76,20 @@ public interface ApiInterface {
 
     @GET("pemesanan_tourguide")
     Call<PemesananTourguideResponse> getPemesananTourguide(@Query("email") String email);
+
+    @GET("kota")
+    Call<KotaResponse> getKota();
+
+    @FormUrlEncoded
+    @PUT("servis_tourguide")
+    Call<EditServisResponse> putServis(
+            @Field("email") String email,
+            @Field("servis[]") ArrayList<String> servis,
+            @Field("topik[]") ArrayList<String> topik,
+            @Field("bahasa[]") ArrayList<String> bahasa,
+            @Field("hari[]") ArrayList<String> hari,
+            @Field("kota") String kota,
+            @Field("harga") String harga,
+            @Field("deskripsi") String deskripsi
+    );
 }
