@@ -80,7 +80,7 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
     }
 
     private void updateLabel() {
-        String myFormat = "yyyy-MM-dd";
+        String myFormat ="dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         et_tgl_tour.setText(sdf.format(myCalendar.getTime()));
     }
@@ -104,7 +104,7 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         et_waktu_tour.setText(selectedHour + ":" + selectedMinute);
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, true);//24 jam
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
                 break;

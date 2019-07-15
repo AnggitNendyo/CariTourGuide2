@@ -34,45 +34,45 @@
             android:layout_marginBottom="15dp"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Foto Wisatawan"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="16sp" />
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Foto Wisatawan"-->
+                    <!--android:textColor="@color/colorWhite"-->
+                    <!--android:textSize="16sp" />-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_foto_wisatawan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:background="@drawable/input_data"
-                        android:textColor="#000000"
-                        android:padding="12dp"
-                        android:textSize="18sp" />
-                    <Button
-                        android:id="@+id/btn_upload_foto"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:text="Upload Foto"
-                        android:background="@drawable/rec_gradient_grey"
-                        android:textAllCaps="false"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_foto_wisatawan"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:fontFamily="sans-serif-light"-->
+                        <!--android:background="@drawable/input_data"-->
+                        <!--android:textColor="#000000"-->
+                        <!--android:padding="12dp"-->
+                        <!--android:textSize="18sp" />-->
+                    <!--<Button-->
+                        <!--android:id="@+id/btn_upload_foto"-->
+                        <!--android:layout_width="120dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Upload Foto"-->
+                        <!--android:background="@drawable/rec_gradient_grey"-->
+                        <!--android:textAllCaps="false"-->
+                        <!--android:layout_alignParentRight="true"/>-->
+                <!--</RelativeLayout>-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/grey" />
-            </LinearLayout>
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:background="@color/grey" />-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,7 +90,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="@string/nama_wisatawan"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -118,7 +117,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="082138972462"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -146,7 +144,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="Wonogiri, Jawa Tengah, Indonesia"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -209,7 +206,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="20"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -237,7 +233,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="3312122708980001"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -265,7 +260,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="A123123"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -280,28 +274,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:orientation="horizontal"
                 android:paddingBottom="0dp"
                 android:gravity="center_horizontal">
 
                 <Button
-                    android:id="@+id/btn_batal"
+                    android:id="@+id/btn_batal_profil_wisatawan"
                     android:text="Batal"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
                     android:textSize="20dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_width="100dp"
-                    android:layout_height="45dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/rec_gradient_warning"/>
                 <Button
-                    android:id="@+id/btn_simpan"
+                    android:id="@+id/btn_simpan_profil_wisatawan"
                     android:text="Simpan"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
                     android:textSize="20dp"
-                    android:layout_width="100dp"
-                    android:layout_height="45dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/rec_gradient_green" />
             </LinearLayout>
 

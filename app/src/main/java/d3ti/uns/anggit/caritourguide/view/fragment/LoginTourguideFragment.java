@@ -19,6 +19,7 @@ import d3ti.uns.anggit.caritourguide.data.ApiService;
 import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.LoginTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginWisatawanResponse;
+import d3ti.uns.anggit.caritourguide.view.activity.HomeActivity;
 import d3ti.uns.anggit.caritourguide.view.activity.MainActivity;
 import d3ti.uns.anggit.caritourguide.view.activity.MainActivityTourguide;
 import retrofit2.Call;
@@ -78,7 +79,8 @@ public class LoginTourguideFragment extends Fragment implements View.OnClickList
 
                                             Toast.makeText(getActivity(), "Login Berhasil !", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getActivity(), MainActivityTourguide.class);
-                                            getActivity().startActivity(intent);
+                                            getActivity().finish();
+                                            startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                                         } else {
                                             Toast.makeText(getActivity(), "Login Gagal !", Toast.LENGTH_SHORT).show();
                                         }

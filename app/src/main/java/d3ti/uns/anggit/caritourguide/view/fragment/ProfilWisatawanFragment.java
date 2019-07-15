@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanItems;
 import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.view.activity.EditProfilWisatawanActivity;
+import d3ti.uns.anggit.caritourguide.view.activity.HomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +46,7 @@ public class ProfilWisatawanFragment extends Fragment implements View.OnClickLis
     TextView tv_umur_wisatawan;
     TextView tv_paspor_wisatawan;
     TextView tv_ktp_wisatawan;
+    Button btn_logout_wisatawan;
     private View view;
     SharedPrefManager sharedPrefManager;
 
@@ -108,6 +111,8 @@ public class ProfilWisatawanFragment extends Fragment implements View.OnClickLis
         tv_umur_wisatawan = view.findViewById(R.id.tv_umur_wisatawan);
         tv_paspor_wisatawan = view.findViewById(R.id.tv_paspor_wisatawan);
         tv_ktp_wisatawan = view.findViewById(R.id.tv_ktp_wisatawan);
+        btn_logout_wisatawan = view.findViewById(R.id.btn_logout_wisatawan);
+        btn_logout_wisatawan.setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +122,13 @@ public class ProfilWisatawanFragment extends Fragment implements View.OnClickLis
                 Intent intent = new Intent(getActivity(), EditProfilWisatawanActivity.class);
                 getActivity().startActivity(intent);
                 break;
+
+            case R.id.btn_logout_wisatawan:
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                Toast.makeText(getActivity(), "Anda Berhasil Logout !", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), HomeActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }

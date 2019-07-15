@@ -1,9 +1,13 @@
 package d3ti.uns.anggit.caritourguide.data;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
 import d3ti.uns.anggit.caritourguide.model.BookingTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.EditProfilTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.EditProfilWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.EditServisResponse;
+import d3ti.uns.anggit.caritourguide.model.EditStatusPemesananResponse;
 import d3ti.uns.anggit.caritourguide.model.KotaResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.LoginWisatawanResponse;
@@ -92,4 +96,38 @@ public interface ApiInterface {
             @Field("harga") String harga,
             @Field("deskripsi") String deskripsi
     );
+
+    @FormUrlEncoded
+    @PUT("profil_tourguide")
+    Call<EditProfilTourguideResponse> putProfilTourguide(
+            @Field("email") String email,
+            @Field("nama_tourguide") String namaTourguide,
+            @Field("notelp_tourguide") String noTelpTourguide,
+            @Field("alamat_tourguide") String alamatTourguide,
+            @Field("jenis_kelamin") String jenisKelamin,
+            @Field("ktp_tourguide") String noKtpTourguide,
+            @Field("umur_tourguide") String umurTourguide
+            );
+
+    @FormUrlEncoded
+    @PUT("profil_wisatawan")
+    Call<EditProfilWisatawanResponse> putProfilWisatawan(
+            @Field("email") String email,
+            @Field("nama_wisatawan") String namaWisatawan,
+            @Field("notelp_wisatawan") String noTelpWisatawan,
+            @Field("alamat_wisatawan") String alamatWisatawan,
+            @Field("jenis_kelamin") String jenisKelamin,
+            @Field("umur_wisatawan") String umurWisatawan,
+            @Field("ktp_wisatawan") String ktpWisatawan,
+            @Field("paspor_wisatawan") String pasporWisatawan
+    );
+
+    @FormUrlEncoded
+    @PUT("status_pemesanan")
+    Call<EditStatusPemesananResponse> putStatusPemesnan(
+        @Field("id_pemesanan") String idPemesanan,
+        @Field("status_pemesanan")String statusPemesanan
+    );
+
+
 }

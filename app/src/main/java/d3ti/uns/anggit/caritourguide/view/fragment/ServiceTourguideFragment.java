@@ -78,11 +78,11 @@ public class ServiceTourguideFragment extends Fragment implements View.OnClickLi
                         List<TopikItem> topikItemList = response.body().getResult().getTopik();
                         List<BahasaItem> bahasaItemList = response.body().getResult().getBahasa();
 
-                        Log.d("WOYO",tourguideItemList.get(0).getIdKab());
+//                        Log.d("WOYO",tourguideItemList.get(0).getIdKab());
 
 
 
-                        tv_kota_tourguide.setText(tourguideItemList.get(0).getIdKab());
+                        tv_kota_tourguide.setText(tourguideItemList.get(0).getNama());
                         tv_harga_tourguide.setText(tourguideItemList.get(0).getHargaTourguide());
                         tv_deskripsi_tourguide.setText(tourguideItemList.get(0).getDeskripsiTourguide());
 

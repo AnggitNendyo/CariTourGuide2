@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +24,8 @@ import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.ProfilTourguideItems;
 import d3ti.uns.anggit.caritourguide.model.ProfilTourguideResponse;
 import d3ti.uns.anggit.caritourguide.view.activity.EditProfilTourguideActivity;
+import d3ti.uns.anggit.caritourguide.view.activity.HomeActivity;
+import d3ti.uns.anggit.caritourguide.view.activity.MainActivityTourguide;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +48,7 @@ public class ProfilTourguideFragment extends Fragment implements View.OnClickLis
     TextView tv_jenis_kelamin;
     TextView tv_umur_tourguide;
     TextView tv_ktp_tourguide;
+    Button btn_logout_tourguide;
     SharedPrefManager sharedPrefManager;
     private View view;
 
@@ -109,6 +113,8 @@ public class ProfilTourguideFragment extends Fragment implements View.OnClickLis
         tv_jenis_kelamin = view.findViewById(R.id.tv_jenis_kelamin);
         tv_umur_tourguide = view.findViewById(R.id.tv_umur_tourguide);
         tv_ktp_tourguide = view.findViewById(R.id.tv_ktp_tourguide);
+        btn_logout_tourguide = view.findViewById(R.id.btn_logout_tourguide);
+        btn_logout_tourguide.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +124,13 @@ public class ProfilTourguideFragment extends Fragment implements View.OnClickLis
                 Intent intent = new Intent(getActivity(), EditProfilTourguideActivity.class);
                 getActivity().startActivity(intent);
                 break;
+
+            case  R.id.btn_logout_tourguide:
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                Toast.makeText(getActivity(), "Anda Berhasil Logout !", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), HomeActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }
