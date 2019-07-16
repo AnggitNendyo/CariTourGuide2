@@ -47,18 +47,19 @@ public class ListViewAdapterTourguide extends RecyclerView.Adapter<ListViewAdapt
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, DetailPemesananTourguideActivity.class);
+                i.putExtra("id_pemesanan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getIdPemesanan());
                 i.putExtra("id_wisatawan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getIdWisatawan());
                 i.putExtra("nama_wisatawan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getNamaWisatawan());
-                i.putExtra("kota_tour", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getNama());
-                i.putExtra("harga_tour", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getHarga_tourguide());
+                i.putExtra("kota_tourguide", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getNama());
+                i.putExtra("harga_tourguide", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getHargaTourguide());
                 i.putExtra("lokasi_temu", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getLokasiTemu());
                 i.putExtra("status_pemesanan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getStatusPemesanan());
                 i.putExtra("foto_wisatawan", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getFotoWisatawan());
                 i.putExtra("waktu_tour", mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getJamPemesanan());
+                i.putExtra("tanggal_tour",mData.get(viewHolderPemesananTourguide.getAdapterPosition()).getTanggalPemesanan());
                 mContext.startActivity(i);
             }
         });
-
         return viewHolderPemesananTourguide;
     }
 

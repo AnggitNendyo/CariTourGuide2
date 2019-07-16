@@ -80,7 +80,7 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
     }
 
     private void updateLabel() {
-        String myFormat ="dd-MM-yyyy";
+        String myFormat ="yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         et_tgl_tour.setText(sdf.format(myCalendar.getTime()));
     }

@@ -41,7 +41,7 @@
             android:layout_marginTop="10sp"
             android:fontFamily="sans-serif-light"
             android:textAlignment="center"
-            android:text="Anggit Nendyo Yogantoro"
+            android:text="Nama Wisatawan"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Surakarta"
+
                     android:textColor="#000000"
                     android:textSize="18sp" />
                 <View
@@ -113,7 +113,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="100.000"
                     android:textColor="#000000"
                     android:textSize="18sp" />
                 <View
@@ -138,7 +137,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Universitas Sebelas Maret"
                     android:textColor="#000000"
                     android:textSize="18sp" />
                 <View
@@ -164,7 +162,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="Senin, 27-05-2019"
                     android:textColor="#000000"
                     android:textSize="18sp" />
                 <View
@@ -215,7 +212,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:text="menunggu konfirmasi"
                     android:textColor="#000000"
                     android:textSize="18sp" />
                 <View
@@ -234,7 +230,7 @@
                 android:gravity="center_horizontal">
 
                 <Button
-                    android:id="@+id/btn_cancel"
+                    android:id="@+id/btn_cancel_t"
                     android:text="Cancel"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
@@ -246,7 +242,7 @@
                     android:background="@drawable/rec_gradient_warning"/>
 
                 <Button
-                    android:id="@+id/btn_setuju"
+                    android:id="@+id/btn_setuju_t"
                     android:text="Setujui"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
@@ -258,7 +254,7 @@
                     android:background="@drawable/rec_gradient_green"/>
 
                 <Button
-                    android:id="@+id/btn_selesai"
+                    android:id="@+id/btn_selesai_t"
                     android:text="Selesai"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
@@ -270,7 +266,7 @@
                     android:background="@drawable/rec_gradient_blue"/>
 
                 <Button
-                    android:id="@+id/btn_chat"
+                    android:id="@+id/btn_chat_t"
                     android:text="Chat"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"

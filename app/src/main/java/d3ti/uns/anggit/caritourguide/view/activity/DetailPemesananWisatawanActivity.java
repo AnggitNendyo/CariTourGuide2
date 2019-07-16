@@ -82,7 +82,6 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
                             e.printStackTrace();
                         }
                     }
-
                     @Override
                     public void onFailure(Call<EditStatusPemesananResponse> call, Throwable t) {
                         t.printStackTrace();
