@@ -11,13 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-
 import org.w3c.dom.Text;
-
 import java.util.List;
-
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
@@ -29,7 +25,6 @@ import d3ti.uns.anggit.caritourguide.view.activity.HomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 /**
  * A simple {@link Fragment} subclass.

@@ -10,12 +10,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.util.List;
+
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
 import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.EditProfilWisatawanItem;
 import d3ti.uns.anggit.caritourguide.model.EditProfilWisatawanResponse;
+import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanItems;
+import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,6 +47,40 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
         setContentView(R.layout.activity_edit_profil_wisatawan);
         sharedPrefManager = new SharedPrefManager(this);
         initView();
+        loadData();
+    }
+
+    private void loadData() {apiInterface.getProfilWisatawan
+            (sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ProfilWisatawanResponse>() {
+        @Override
+        public void onResponse(Call<ProfilWisatawanResponse> call, Response<ProfilWisatawanResponse> response) {
+            try {
+                if (response.isSuccessful()){
+                    List<ProfilWisatawanItems>profilWisatawanItems = response.body().getResult();
+                    etNamaWisatawan.setText(profilWisatawanItems.get(0).getNamaWisatawan());
+                    etNotelpWisatawan.setText(profilWisatawanItems.get(0).getNotelpWisatawan());
+                    etAlamatWisatawan.setText(profilWisatawanItems.get(0).getAlamatWisatawan());
+                    etUmurWisatawan.setText(profilWisatawanItems.get(0).getUmurWisatawan());
+                    etKtpWisatawan.setText(profilWisatawanItems.get(0).getKtpWisatawan());
+                    etPasporWisatawan.setText(profilWisatawanItems.get(0).getPasporWisatawan());
+
+                    if (profilWisatawanItems.get(0).getJenisKelamin().equals("laki-laki")) {
+                        rbLakilaki.setChecked(true);
+                    } else {
+                        rbPerempuan.setChecked(true);
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ProfilWisatawanResponse> call, Throwable t) {
+            t.printStackTrace();
+        }
+    });
+
     }
 
     private void putData() {

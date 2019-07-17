@@ -3,6 +3,7 @@ package d3ti.uns.anggit.caritourguide.view.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import d3ti.uns.anggit.caritourguide.data.ApiService;
 import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.EditProfilTourguideItem;
 import d3ti.uns.anggit.caritourguide.model.EditProfilTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.ProfilTourguideItems;
+import d3ti.uns.anggit.caritourguide.model.ProfilTourguideResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +46,39 @@ public class EditProfilTourguideActivity extends AppCompatActivity implements Vi
         setContentView(R.layout.activity_edit_profil_tourguide);
         sharedPrefManager = new SharedPrefManager(this);
         initView();
+        loadData();
 
+    }
+
+    private void loadData(){apiInterface.getProfilTourguide
+            (sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ProfilTourguideResponse>() {
+        @Override
+        public void onResponse(Call<ProfilTourguideResponse> call, Response<ProfilTourguideResponse> response) {
+            try{
+                if(response.isSuccessful()){
+                    List<ProfilTourguideItems>profilTourguideItems = response.body().getResult();
+                    etNamaTourguide.setText(profilTourguideItems.get(0).getNamaTourguide());
+                    etNotelpTourguide.setText(profilTourguideItems.get(0).getNotelpTourguide());
+                    etAlamatTourguide.setText(profilTourguideItems.get(0).getAlamatTourguide());
+                    etUmurTourguide.setText(profilTourguideItems.get(0).getUmurTourguide());
+                    etKtpTourguide.setText(profilTourguideItems.get(0).getKtpTourguide());
+
+                    if (profilTourguideItems.get(0).getJenisKelamin().equals("laki-laki")) {
+                        rbLakilaki.setChecked(true);
+                    } else {
+                        rbPerempuan.setChecked(true);
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ProfilTourguideResponse> call, Throwable t) {
+            t.printStackTrace();
+        }
+    });
     }
 
     private void putData() {

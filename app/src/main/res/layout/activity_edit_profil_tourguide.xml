@@ -131,7 +131,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="@string/nama_tourguide"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -159,7 +158,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="082138972462"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -187,7 +185,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="Wonogiri, Jawa Tengah, Indonesia"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -249,7 +246,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="20"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
@@ -277,7 +273,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:background="@drawable/input_data"
-                    android:text="3312122708980001"
                     android:textColor="#000000"
                     android:padding="10dp"
                     android:textSize="18sp" />
