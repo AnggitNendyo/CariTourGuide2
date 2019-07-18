@@ -27,6 +27,17 @@ public class EditProfilWisatawanItem {
 	@SerializedName("ktp_wisatawan")
 	private String ktpWisatawan;
 
+	@SerializedName("success")
+	private String success;
+
+	public String getSuccess() {
+		return success;
+	}
+
+	public void setSuccess(String success) {
+		this.success = success;
+	}
+
 	public void setNamaWisatawan(String namaWisatawan){
 		this.namaWisatawan = namaWisatawan;
 	}

@@ -2,6 +2,7 @@ package d3ti.uns.anggit.caritourguide.data;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+import java.util.Map;
 
 import d3ti.uns.anggit.caritourguide.model.BookingTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.EditProfilTourguideResponse;
@@ -18,15 +19,18 @@ import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.RegisterWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.SearchTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.ServiceTourguideResponse;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -75,6 +79,9 @@ public interface ApiInterface {
     @GET("tourguide")
     Call<SearchTourguideResponse> getSearchTourguide();
 
+    @GET("tourguide")
+    Call<SearchTourguideResponse> getSearchTourguideQuery(@Query("kota") String kota);
+
     @GET("pemesanan_wisatawan")
     Call<PemesananWisatawanResponse> getPemesananWisatawan(@Query("email") String email);
 
@@ -109,17 +116,19 @@ public interface ApiInterface {
             @Field("umur_tourguide") String umurTourguide
             );
 
-    @FormUrlEncoded
-    @PUT("profil_wisatawan")
+    @Multipart
+    @POST("profil_wisatawan")
     Call<EditProfilWisatawanResponse> putProfilWisatawan(
-            @Field("email") String email,
-            @Field("nama_wisatawan") String namaWisatawan,
-            @Field("notelp_wisatawan") String noTelpWisatawan,
-            @Field("alamat_wisatawan") String alamatWisatawan,
-            @Field("jenis_kelamin") String jenisKelamin,
-            @Field("umur_wisatawan") String umurWisatawan,
-            @Field("ktp_wisatawan") String ktpWisatawan,
-            @Field("paspor_wisatawan") String pasporWisatawan
+            @Part("email") RequestBody email,
+            @Part("nama_wisatawan") RequestBody namaWisatawan,
+            @Part("notelp_wisatawan") RequestBody noTelpWisatawan,
+            @Part("alamat_wisatawan") RequestBody alamatWisatawan,
+            @Part("jenis_kelamin") RequestBody jenisKelamin,
+            @Part("umur_wisatawan") RequestBody umurWisatawan,
+            @Part("ktp_wisatawan") RequestBody ktpWisatawan,
+            @Part("paspor_wisatawan") RequestBody pasporWisatawan,
+            @Part MultipartBody.Part file,
+            @Part("name") RequestBody name
     );
 
     @FormUrlEncoded

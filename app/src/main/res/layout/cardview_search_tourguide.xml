@@ -6,7 +6,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_width="wrap_content"
     android:layout_weight="1"
-    android:layout_height="140dp">
+    android:layout_height="130dp">
     <RelativeLayout
         android:id="@+id/id_gridView"
         android:orientation="vertical"

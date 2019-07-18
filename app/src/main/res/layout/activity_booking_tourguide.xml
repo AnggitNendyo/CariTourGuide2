@@ -9,45 +9,32 @@
     android:background="@drawable/background_gradient"
     tools:context=".view.activity.BookingTourguideActivity">
 
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/logo_ctg_cuy"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buat Pesanan Anda"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
+
     <LinearLayout
         android:layout_marginTop="15dp"
         android:id="@+id/layoutBooking"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_centerHorizontal="true"
         android:background="@drawable/background_white"
         android:padding="20dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/logo_ctg_cuy"
-            android:layout_marginBottom="20dp"
-            />
-
-        <TextView
-            android:id="@+id/tv_lokasi_temu"
-            android:paddingTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lokasi Temu"
-            android:textColor="@color/colorBlack"/>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/et_lokasi_temu"
-                android:drawablePadding="20dp"
-                android:paddingRight="10dp"
-                android:drawableRight="@drawable/ic_email"
-                android:hint="Lokasi bertemu tourguide"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_tgl_tour"
@@ -66,10 +53,11 @@
                 android:inputType="date"
                 android:drawablePadding="20dp"
                 android:paddingRight="10dp"
-                android:drawableRight="@drawable/ic_person"
+                android:drawableRight="@drawable/ic_tanggal"
                 android:hint="Tanggal tour"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:keyboardNavigationCluster="false"/>
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -87,12 +75,35 @@
                 android:focusable="false"
                 android:drawablePadding="20dp"
                 android:paddingRight="10dp"
-                android:drawableRight="@drawable/ic_email"
+                android:drawableRight="@drawable/ic_waktu"
                 android:hint="waktu tour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="time"/>
+                android:inputType="time"
+                android:keyboardNavigationCluster="false"/>
         </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_lokasi_temu"
+            android:paddingTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lokasi Temu"
+            android:textColor="@color/colorBlack"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_lokasi_temu"
+                android:drawablePadding="20dp"
+                android:paddingRight="10dp"
+                android:drawableRight="@drawable/ic_lokasi"
+                android:hint="Lokasi bertemu tourguide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
 
         <Button
             android:id="@+id/btn_booking_tourguide"
