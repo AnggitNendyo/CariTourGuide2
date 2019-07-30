@@ -32,7 +32,7 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
     EditText et_tgl_tour, et_waktu_tour, et_lokasi_temu;
-    Button btn_booking_tourguide;
+    Button btn_booking_tourguide, btn_batal_booking;
     String id_tourguide;
     private SharedPrefManager sharedPrefManager;
 
@@ -50,6 +50,7 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
         et_waktu_tour = (EditText) findViewById(R.id.et_waktu_tour);
         et_lokasi_temu = (EditText) findViewById(R.id.et_lokasi_temu);
         btn_booking_tourguide = (Button) findViewById(R.id.btn_booking_tourguide);
+        btn_batal_booking = findViewById(R.id.btn_batal_booking);
 
         myCalendar = Calendar.getInstance();
         date = new DatePickerDialog.OnDateSetListener() {
@@ -75,8 +76,9 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
         et_tgl_tour = (EditText) findViewById(R.id.et_tgl_tour);
         et_waktu_tour = (EditText) findViewById(R.id.et_waktu_tour);
         btn_booking_tourguide = (Button) findViewById(R.id.btn_booking_tourguide);
-
         btn_booking_tourguide.setOnClickListener(this);
+        btn_batal_booking = findViewById(R.id.btn_batal_booking);
+        btn_batal_booking.setOnClickListener(this);
     }
 
     private void updateLabel() {
@@ -129,6 +131,7 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
                                         if (TextUtils.equals(respon, "Pemesanan Berhasil")) {
                                             Toast.makeText(getApplicationContext(), "Pemesanan Berhasil !", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), PemesananWisatawanFragment.class);
+                                            finish();
                                             getApplicationContext().startActivity(intent);
                                         } else if (TextUtils.equals(respon, "Pesanan Telah Dibuat !")) {
                                             Toast.makeText(getApplicationContext(), "Pesanan Telah Dibuat !", Toast.LENGTH_SHORT).show();
@@ -146,12 +149,12 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
                         public void onFailure(Call<BookingTourguideResponse> call, Throwable t) {
                             t.printStackTrace();
                         }
-
-
                     });
                 }
+                break;
 
-
+            case R.id.btn_batal_booking:
+                finish();
                 break;
 
         }

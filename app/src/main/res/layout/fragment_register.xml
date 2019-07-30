@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="@dimen/padding_master"
-    android:background="@drawable/background_gradient"
+    android:background="@drawable/borobudur"
     tools:context=".view.activity.RegisterWisatawanActivity">
 
     <LinearLayout
@@ -39,7 +39,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/background_white"
+        android:background="@drawable/background_white_transparan"
         android:padding="20dp"
         android:orientation="vertical"
         android:layout_width="match_parent"

@@ -1,9 +1,9 @@
 package d3ti.uns.anggit.caritourguide.data;
 
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
-import java.util.Map;
 
+import d3ti.uns.anggit.caritourguide.model.BerandaTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.BerandaWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.BookingTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.EditProfilTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.EditProfilWisatawanResponse;
@@ -22,7 +22,6 @@ import d3ti.uns.anggit.caritourguide.model.ServiceTourguideResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -30,7 +29,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -88,6 +86,12 @@ public interface ApiInterface {
     @GET("pemesanan_tourguide")
     Call<PemesananTourguideResponse> getPemesananTourguide(@Query("email") String email);
 
+    @GET("beranda_wisatawan")
+    Call<BerandaWisatawanResponse> getBerandaWisatawan(@Query("email") String email);
+
+    @GET("beranda_tourguide")
+    Call<BerandaTourguideResponse> getBerandaTourguide(@Query("email") String email);
+
     @GET("kota")
     Call<KotaResponse> getKota();
 
@@ -104,16 +108,18 @@ public interface ApiInterface {
             @Field("deskripsi") String deskripsi
     );
 
-    @FormUrlEncoded
-    @PUT("profil_tourguide")
+    @Multipart
+    @POST("profil_tourguide")
     Call<EditProfilTourguideResponse> putProfilTourguide(
-            @Field("email") String email,
-            @Field("nama_tourguide") String namaTourguide,
-            @Field("notelp_tourguide") String noTelpTourguide,
-            @Field("alamat_tourguide") String alamatTourguide,
-            @Field("jenis_kelamin") String jenisKelamin,
-            @Field("ktp_tourguide") String noKtpTourguide,
-            @Field("umur_tourguide") String umurTourguide
+            @Part("email") RequestBody email,
+            @Part("nama_tourguide") RequestBody namaTourguide,
+            @Part("notelp_tourguide") RequestBody noTelpTourguide,
+            @Part("alamat_tourguide") RequestBody alamatTourguide,
+            @Part("jenis_kelamin") RequestBody jenisKelamin,
+            @Part("ktp_tourguide") RequestBody noKtpTourguide,
+            @Part("umur_tourguide") RequestBody umurTourguide,
+            @Part MultipartBody.Part file,
+            @Part("name") RequestBody name
             );
 
     @Multipart

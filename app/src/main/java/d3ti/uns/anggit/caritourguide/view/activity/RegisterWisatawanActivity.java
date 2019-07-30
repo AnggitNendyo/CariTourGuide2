@@ -80,6 +80,7 @@ public class RegisterWisatawanActivity extends AppCompatActivity implements View
                                         if (TextUtils.equals(respon, "Register Berhasil")) {
                                             Toast.makeText(getApplicationContext(), "Register Berhasil !", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                            finish();
                                             getApplicationContext().startActivity(intent);
                                         } else if (TextUtils.equals(respon, "Email Telah Terdaftar !")) {
                                             Toast.makeText(getApplicationContext(), "Email Telah Terdaftar !", Toast.LENGTH_SHORT).show();

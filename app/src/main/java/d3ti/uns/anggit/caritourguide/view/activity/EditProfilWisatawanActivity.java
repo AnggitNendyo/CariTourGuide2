@@ -89,6 +89,7 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
                         etUmurWisatawan.setText(profilWisatawanItems.get(0).getUmurWisatawan());
                         etKtpWisatawan.setText(profilWisatawanItems.get(0).getKtpWisatawan());
                         etPasporWisatawan.setText(profilWisatawanItems.get(0).getPasporWisatawan());
+                        tvFotoWisatawan.setText(profilWisatawanItems.get(0).getFotoWisatawan());
 
                         if (profilWisatawanItems.get(0).getJenisKelamin().equals("laki-laki")) {
                             rbLakilaki.setChecked(true);
@@ -110,9 +111,6 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
     }
 
     private void putData() {
-//        String namaWisatawan = etNamaWisatawan.getText().toString();
-//        String noTelpWisatawan = etNotelpWisatawan.getText().toString();
-//        String alamatWisatawan = etAlamatWisatawan.getText().toString();
         String jk = "";
         if (rbLakilaki.isChecked() == true) {
             jk = "laki-laki";
@@ -120,10 +118,6 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
         if (rbPerempuan.isChecked() == true) {
             jk = "perempuan";
         }
-//        String umurWisatawan = etUmurWisatawan.getText().toString();
-//        String pasporWisatawan = etPasporWisatawan.getText().toString();
-//        String ktpWisatawan = etKtpWisatawan.getText().toString();
-
         RequestBody umurWisatawan = RequestBody.create(MediaType.parse("text/plain"), etUmurWisatawan.getText().toString());
         RequestBody pasporWisatawan = RequestBody.create(MediaType.parse("text/plain"), etPasporWisatawan.getText().toString());
         RequestBody ktpWisatawan = RequestBody.create(MediaType.parse("text/plain"), etKtpWisatawan.getText().toString());
@@ -132,7 +126,6 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
         RequestBody noTelpWisatawan = RequestBody.create(MediaType.parse("text/plain"), etNotelpWisatawan.getText().toString());
         RequestBody alamatWisatawan = RequestBody.create(MediaType.parse("text/plain"), etAlamatWisatawan.getText().toString());
         RequestBody jenisKelamin = RequestBody.create(MediaType.parse("text/plain"), jk);
-
 
         apiInterface.putProfilWisatawan(emailUser, namaWisatawan, noTelpWisatawan,
                 alamatWisatawan, jenisKelamin, umurWisatawan, pasporWisatawan, ktpWisatawan, fileToUpload, filename)
@@ -169,6 +162,8 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
 
             case R.id.btn_simpan_profil_wisatawan:
                 putData();
+                Toast.makeText(EditProfilWisatawanActivity.this, "Berhasil Update Profil", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
             case R.id.btn_upload_foto_wisatawan:
                 Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
@@ -214,8 +209,6 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
             return cursor.getString(idx);
         }
     }
-
-
 
     private void initView() {
         etNamaWisatawan = (EditText) findViewById(R.id.et_nama_wisatawan);

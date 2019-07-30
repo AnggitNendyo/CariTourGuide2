@@ -88,6 +88,7 @@ public class LoginWisatawanFragment extends Fragment implements View.OnClickList
 
                                             Toast.makeText(getActivity(), "Login Berhasil !", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            getActivity().finish();
                                             getActivity().startActivity(intent);
                                         } else {
                                             Toast.makeText(getActivity(), "Login Gagal !", Toast.LENGTH_SHORT).show();

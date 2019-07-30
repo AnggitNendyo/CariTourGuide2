@@ -104,16 +104,36 @@
                 android:inputType="text"/>
         </android.support.design.widget.TextInputLayout>
 
-
-        <Button
-            android:id="@+id/btn_booking_tourguide"
-            android:textColor="#FFF"
-            android:background="@drawable/rec_gradient_green"
-            android:layout_marginTop="30dp"
-            android:textAllCaps="false"
-            android:text="Pesan Tour Guide"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="4dp">
+            <Button
+                android:id="@+id/btn_batal_booking"
+                android:textColor="#FFF"
+                android:background="@drawable/rec_gradient_warning"
+                android:layout_marginTop="30dp"
+                android:textAllCaps="false"
+                android:text="Batal"
+                android:layout_marginRight="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_booking_tourguide"
+                android:textColor="#FFF"
+                android:background="@drawable/rec_gradient_green"
+                android:layout_marginTop="30dp"
+                android:textAllCaps="false"
+                android:text="Pesan Tour Guide"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

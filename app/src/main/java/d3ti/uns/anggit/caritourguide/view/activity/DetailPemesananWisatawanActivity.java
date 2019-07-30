@@ -1,6 +1,10 @@
 package d3ti.uns.anggit.caritourguide.view.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,10 +29,11 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
     TextView tv_nama_tourguide, tv_status_tourguide, tv_kota_tourguide, tv_harga_tourguide, tv_lokasi_temu,
             tv_tanggal_tour, tv_status_pemesanan, tv_waktu_tour;
     ImageView iv_foto_tourguide;
-    String id_tourguide, nama_tourguide, foto_tourguide, status_tourguide,id_pemesanan,
-            tanggal_tour, status_pemesanan, kota_tourguide, lokasi_temu, harga_tourguide, waktu_tour;
+    String id_tourguide, nama_tourguide, foto_tourguide, status_tourguide, id_pemesanan,
+            tanggal_tour, status_pemesanan, kota_tourguide, lokasi_temu, harga_tourguide, waktu_tour, notelp_tourguide, apiwa;
     private Button btnCancel;
     private Button btnChat;
+    AlertDialog.Builder builder;
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
 
     @Override
@@ -36,6 +41,9 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pemesanan_wisatawan);
         initView();
+        builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+
         id_pemesanan = getIntent().getExtras().getString("id_pemesanan");
         id_tourguide = getIntent().getExtras().getString("id_tourguide");
         nama_tourguide = getIntent().getExtras().getString("nama_tourguide");
@@ -47,6 +55,9 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         tanggal_tour = getIntent().getExtras().getString("tanggal_tour");
         lokasi_temu = getIntent().getExtras().getString("lokasi_temu");
         waktu_tour = getIntent().getExtras().getString("waktu_tour");
+        notelp_tourguide = getIntent().getExtras().getString("notelp_tourguide");
+
+        apiwa = "https://api.whatsapp.com/send?phone=";
 
         Glide.with(this).load(BASE_URL + "caritourguide/assets/img/foto_tourguide/" + foto_tourguide).into(iv_foto_tourguide);
         tv_nama_tourguide.setText(nama_tourguide);
@@ -58,38 +69,57 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         tv_tanggal_tour.setText(tanggal_tour);
         tv_waktu_tour.setText(waktu_tour);
 
-        if(!TextUtils.equals(tv_status_pemesanan.getText().toString(), "menunggu")){
+        if (!TextUtils.equals(tv_status_pemesanan.getText().toString(), "menunggu")) {
             btnCancel.setVisibility(View.GONE);
         }
-        if(!TextUtils.equals(tv_status_pemesanan.getText().toString(),"disetujui")){
+        if (!TextUtils.equals(tv_status_pemesanan.getText().toString(), "disetujui")) {
             btnChat.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_cancel:
-                apiInterface.putStatusPemesnan(id_pemesanan, "dicancel").enqueue(new Callback<EditStatusPemesananResponse>() {
+                builder.setMessage("Apakah Anda Yakin akan membatalkan pesanan ini?");
+                builder.setTitle("Perhatian !");
+                builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onResponse(Call<EditStatusPemesananResponse> call, Response<EditStatusPemesananResponse> response) {
-                        try{
-                            if (response.isSuccessful())
-                            {
-                                Toast.makeText(DetailPemesananWisatawanActivity.this, "Pemesanan di Cancel", Toast.LENGTH_SHORT).show();
+                    public void onClick(DialogInterface dialog, int which) {
+                        apiInterface.putStatusPemesnan(id_pemesanan, "dicancel").enqueue(new Callback<EditStatusPemesananResponse>() {
+                            @Override
+                            public void onResponse(Call<EditStatusPemesananResponse> call, Response<EditStatusPemesananResponse> response) {
+                                try {
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(DetailPemesananWisatawanActivity.this, "Pemesanan di Cancel", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<EditStatusPemesananResponse> call, Throwable t) {
-                        t.printStackTrace();
+                            @Override
+                            public void onFailure(Call<EditStatusPemesananResponse> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
                     }
                 });
+                builder.setNegativeButton("Tutup", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialogTolak = builder.create();
+                alertDialogTolak.show();
                 break;
 
             case R.id.btn_chat:
+                int panjang = notelp_tourguide.length();
+                final String url = apiwa + "62" + notelp_tourguide.substring(1, panjang);
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(i);
                 break;
         }
     }

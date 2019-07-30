@@ -230,8 +230,8 @@
                 android:gravity="center_horizontal">
 
                 <Button
-                    android:id="@+id/btn_cancel_t"
-                    android:text="Cancel"
+                    android:id="@+id/btn_tolak_t"
+                    android:text="Tolak"
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
                     android:textSize="12dp"

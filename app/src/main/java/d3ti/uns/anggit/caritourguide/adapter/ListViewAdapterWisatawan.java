@@ -44,6 +44,7 @@ public class ListViewAdapterWisatawan extends RecyclerView.Adapter<ListViewAdapt
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(mContext, DetailPemesananWisatawanActivity.class);
+                i.putExtra("notelp_tourguide", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getNotelpTourguide());
                 i.putExtra("id_pemesanan", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getIdPemesanan());
                 i.putExtra("id_tourguide", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getIdTourguide());
                 i.putExtra("status_pemesanan", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getStatusPemesanan());

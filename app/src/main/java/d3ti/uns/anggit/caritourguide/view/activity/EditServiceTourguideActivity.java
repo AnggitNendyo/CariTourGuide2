@@ -3,6 +3,7 @@ package d3ti.uns.anggit.caritourguide.view.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import d3ti.uns.anggit.caritourguide.R;
@@ -24,6 +26,10 @@ import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.EditServisResponse;
 import d3ti.uns.anggit.caritourguide.model.KotaItem;
 import d3ti.uns.anggit.caritourguide.model.KotaResponse;
+import d3ti.uns.anggit.caritourguide.model.ProfilTourguideItems;
+import d3ti.uns.anggit.caritourguide.model.ProfilTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.ServiceTourguideResponse;
+import d3ti.uns.anggit.caritourguide.model.TourguideItem;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,27 +38,34 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
     // Deklarasi View
     SearchableSpinner spinnerKota;
     EditText edtHarga, edtDeskripsi;
-
+    String selectedKota;
+    int kotaIndex;
     SharedPrefManager sharedPrefManager;
 
     CheckBox[] hariCheckbox;
     Integer[] hariCheckboxId = {R.id.cb_hari_senin, R.id.cb_hari_selasa, R.id.cb_hari_rabu, R.id.cb_hari_kamis, R.id.cb_hari_jumat, R.id.cb_hari_sabtu, R.id.cb_hari_minggu};
+    String[] hariList = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
 
     CheckBox[] topikCheckbox;
     Integer[] topikCheckboxId = {R.id.cb_topik_wisata_alam, R.id.cb_topik_sejarah, R.id.cb_topik_seni, R.id.cb_topik_olahraga, R.id.cb_topik_wisata_kuliner, R.id.cb_topik_lainnya};
+    String[] topikList = {"Wisata Alam", "Sejarah", "Kesenian", "Kuliner", "Olahraga", "Lainnya"};
 
     CheckBox[] fasilitasCheckbox;
     Integer[] fasilitasCheckboxId = {R.id.cb_fasilitas_jalan, R.id.cb_fasilitas_sepeda, R.id.cb_fasilitas_sepeda_motor, R.id.cb_fasilitas_mobil, R.id.cb_fasilitas_kapal, R.id.cb_fasilitas_lainnya};
+    String[] fasilitasList = {"Jalan Kaki", "Sepeda", "Sepeda Motor", "Mobil", "Kapal", "Lainnya"};
 
     CheckBox[] bahasaCheckbox;
     Integer[] bahasaCheckboxId = {R.id.cb_bahasa_indonesia, R.id.cb_bahasa_inggris, R.id.cb_bahasa_spanyol, R.id.cb_bahasa_prancis, R.id.cb_bahasa_korea, R.id.cb_bahasa_thailand, R.id.cb_bahasa_jepang, R.id.cb_bahasa_china, R.id.cb_bahasa_lainnya};
+    String[] bahasaList = {"Indonesia", "Inggris", "Spanyol", "Perancis", "Korea", "Thailand", "Jepang", "China", "Lainnya"};
 
     Button btnSimpan, btnBatal;
 
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
+    ProfilTourguideItems profilTourguideItems;
     List<KotaItem> kotaItemList = new ArrayList<>();
     List<String> kotaId = new ArrayList<>();
     List<String> kotaNama = new ArrayList<>();
+
     ArrayAdapter<String> adapterSpinner;
 
     // Form Value
@@ -66,20 +79,108 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_service_tourguide);
+        initView();
 
         sharedPrefManager = new SharedPrefManager(this);
 
-        initView();
-
         loadKota();
+        loadData();
+        loadDataTorguide();
+    }
 
-        adapterSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, kotaNama);
+    private void loadDataTorguide() {
+        apiInterface.getProfilTourguide
+                (sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ProfilTourguideResponse>() {
+            @Override
+            public void onResponse(Call<ProfilTourguideResponse> call, Response<ProfilTourguideResponse> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        List<ProfilTourguideItems> profilTourguideItems = response.body().getResult();
+                        edtHarga.setText(profilTourguideItems.get(0).getHargaTourguide());
+                        edtDeskripsi.setText(profilTourguideItems.get(0).getDeskripsiTourguide());
+                        String kota = profilTourguideItems.get(0).getIdKab();
+                        kotaIndex = kotaId.indexOf(kota);
 
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        selectedKota = kotaNama.get(0);
 
-        spinnerKota.setAdapter(adapterSpinner);
+                        Log.d("LOAD DATA KOTA", kotaIndex + " | " + selectedKota);
 
-        spinnerKota.setOnItemSelectedListener(this);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Mengambil Data Gagal !", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfilTourguideResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void loadData() {
+        apiInterface.getServiceTourguide
+                (sharedPrefManager.getSpEmailUser()).enqueue(new Callback<ServiceTourguideResponse>() {
+            @Override
+            public void onResponse(Call<ServiceTourguideResponse> call, Response<ServiceTourguideResponse> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        String selectedHari = response.body().getResult()
+                                .getHari()
+                                .get(0)
+                                .getNamaHari();
+                        for (int i = 0; i < hariList.length; i++) {
+                            if (selectedHari.contains(hariList[i])) {
+                                hariCheckbox[i].setChecked(true);
+                            }
+                        }
+
+                        String selectedTopik = response.body().getResult()
+                                .getTopik()
+                                .get(0)
+                                .getNamaTopik();
+                        for (int i = 0; i < topikList.length; i++) {
+                            if (selectedTopik.contains(topikList[i])) {
+                                topikCheckbox[i].setChecked(true);
+                            }
+                        }
+
+                        String selectedFasilitas = response.body().getResult()
+                                .getServis()
+                                .get(0)
+                                .getNamaServis();
+                        for (int i = 0; i < fasilitasList.length; i++) {
+                            if (selectedFasilitas.contains(fasilitasList[i])) {
+                                fasilitasCheckbox[i].setChecked(true);
+                            }
+                        }
+
+                        String selectedBahasa = response.body().getResult()
+                                .getBahasa()
+                                .get(0)
+                                .getNamaBahasa();
+                        for (int i = 0; i < bahasaList.length; i++) {
+                            if (selectedBahasa.contains(bahasaList[i])) {
+                                bahasaCheckbox[i].setChecked(true);
+                            }
+                        }
+
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Mengambil Data Gagal !", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServiceTourguideResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     private void loadKota() {
@@ -88,7 +189,6 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
             public void onResponse(Call<KotaResponse> call, Response<KotaResponse> response) {
                 try {
                     if (response.isSuccessful()) {
-
                         kotaItemList.addAll(response.body().getResult());
 
                         for (int i = 0; i < kotaItemList.size(); i++) {
@@ -102,12 +202,14 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<KotaResponse> call, Throwable t) {
 
             }
         });
     }
+
 
     private void initView() {
         spinnerKota = findViewById(R.id.spinner_kota_id);
@@ -146,6 +248,12 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
 
         edtDeskripsi = findViewById(R.id.et_deskripsi_tourguide);
 
+        adapterSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, kotaNama);
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerKota.setAdapter(adapterSpinner);
+        spinnerKota.setSelection(4);
+
+        spinnerKota.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -155,34 +263,37 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_simpan_edit_servis:
-                String harga = edtHarga.getText().toString();
-                String deskripsi = edtDeskripsi.getText().toString();
+                if (spinnerKota.getSelectedItem() == null) {
+                    Toast.makeText(EditServiceTourguideActivity.this, "Data masih Kosong !", Toast.LENGTH_SHORT).show();
+                } else {
+                    String harga = edtHarga.getText().toString();
+                    String deskripsi = edtDeskripsi.getText().toString();
 
-                apiInterface.putServis(sharedPrefManager.getSpEmailUser(), servis, topik, bahasa,hari, kota, harga, deskripsi).enqueue(new Callback<EditServisResponse>() {
-                    @Override
-                    public void onResponse(Call<EditServisResponse> call, Response<EditServisResponse> response) {
-                        try {
-                            if(response.isSuccessful()){
-                                Toast.makeText(EditServiceTourguideActivity.this, "Data berhasil Diubah !", Toast.LENGTH_SHORT).show();
-                                finish();
+                    apiInterface.putServis(sharedPrefManager.getSpEmailUser(), servis, topik, bahasa, hari, kota, harga, deskripsi).enqueue(new Callback<EditServisResponse>() {
+                        @Override
+                        public void onResponse(Call<EditServisResponse> call, Response<EditServisResponse> response) {
+                            try {
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(EditServiceTourguideActivity.this, "Data berhasil Diubah !", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (Exception e){
-                            e.printStackTrace();
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<EditServisResponse> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<EditServisResponse> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+                }
                 break;
             case R.id.btn_batal_edit_servis:
                 finish();
@@ -295,7 +406,7 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
                 break;
 
 
-                //CASE CHECK BOX FASILITAS
+            //CASE CHECK BOX FASILITAS
 
             case R.id.cb_fasilitas_jalan:
                 if (!servis.contains(fasilitasCheckbox[0].getText().toString())) {
@@ -345,7 +456,7 @@ public class EditServiceTourguideActivity extends AppCompatActivity implements A
                 }
                 break;
 
-                //CASE CHECK BOX BAHASA
+            //CASE CHECK BOX BAHASA
             case R.id.cb_bahasa_indonesia:
                 if (!bahasa.contains(bahasaCheckbox[0].getText().toString())) {
                     bahasa.add(bahasaCheckbox[0].getText().toString());
