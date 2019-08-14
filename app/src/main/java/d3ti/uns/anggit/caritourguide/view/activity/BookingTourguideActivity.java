@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -63,6 +64,8 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
             }
         };
 
+
+
         et_lokasi_temu.setOnClickListener(this);
         et_tgl_tour.setOnClickListener(this);
         et_waktu_tour.setOnClickListener(this);
@@ -92,9 +95,11 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.et_tgl_tour:
-                new DatePickerDialog(BookingTourguideActivity.this, date, myCalendar
+                DatePickerDialog dateDialog = new DatePickerDialog(BookingTourguideActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        myCalendar.get(Calendar.DAY_OF_MONTH));
+                dateDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                dateDialog.show();
                 break;
             case R.id.et_waktu_tour:
                 Calendar mcurrentTime = Calendar.getInstance();
@@ -134,10 +139,11 @@ public class BookingTourguideActivity extends AppCompatActivity implements View.
                                             finish();
                                             getApplicationContext().startActivity(intent);
                                         } else if (TextUtils.equals(respon, "Pesanan Telah Dibuat !")) {
-                                            Toast.makeText(getApplicationContext(), "Pesanan Telah Dibuat !", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Tour Guide telah dipesan pada tanggal tersebut !", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Pemesanan Gagal !", Toast.LENGTH_SHORT).show();
                                         }
+                                        Log.d("DEBUG", respon);
                                     }
                                 }
                             } catch (Exception e) {

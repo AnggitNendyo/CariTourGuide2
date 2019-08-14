@@ -56,6 +56,7 @@ public class ListViewAdapterWisatawan extends RecyclerView.Adapter<ListViewAdapt
                 i.putExtra("status_tourguide", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getStatusTourguide());
                 i.putExtra("tanggal_tour", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getTanggalPemesanan());
                 i.putExtra("waktu_tour", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getJamPemesanan());
+                i.putExtra("review_tour", mData.get(viewHolderPemesananWisatawan.getAdapterPosition()).getReviewTour());
                 mContext.startActivity(i);
             }
         });

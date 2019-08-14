@@ -100,6 +100,13 @@ public class DetailPemesananTourguideActivity extends AppCompatActivity implemen
             btnSelesai.setVisibility(View.GONE);
         }
 
+        if (TextUtils.equals(tvStatusPemesanan.getText().toString(), "dicancel")) {
+            btnChat.setVisibility(View.GONE);
+            btnTolak.setVisibility(View.GONE);
+            btnSetuju.setVisibility(View.GONE);
+            btnSelesai.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

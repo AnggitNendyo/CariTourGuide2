@@ -52,8 +52,10 @@
             android:layout_height="wrap_content"
             android:text="@string/nama"
             android:textColor="@color/colorBlack"/>
+Saya adalah Mahasiswa di surakarta Saya bisa mengjak anda jalan jalan berkeliling surakarta.
 
-        <android.support.design.widget.TextInputLayout
+
+         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText

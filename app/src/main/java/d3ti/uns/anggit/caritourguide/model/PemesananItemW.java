@@ -9,6 +9,17 @@ public class PemesananItemW {
 	@SerializedName("status_pemesanan")
 	private String statusPemesanan;
 
+	public String getReviewTour() {
+		return reviewTour;
+	}
+
+	public void setReviewTour(String reviewTour) {
+		this.reviewTour = reviewTour;
+	}
+
+	@SerializedName("review_tour")
+	private String reviewTour;
+
 	@SerializedName("id_pemesanan")
 	private String idPemesanan;
 

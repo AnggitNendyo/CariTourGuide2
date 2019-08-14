@@ -7,18 +7,25 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
 import d3ti.uns.anggit.caritourguide.model.EditStatusPemesananResponse;
+import d3ti.uns.anggit.caritourguide.model.ReviewTourItems;
+import d3ti.uns.anggit.caritourguide.model.ReviewTourResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,12 +34,15 @@ import static d3ti.uns.anggit.caritourguide.BuildConfig.BASE_URL;
 
 public class DetailPemesananWisatawanActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tv_nama_tourguide, tv_status_tourguide, tv_kota_tourguide, tv_harga_tourguide, tv_lokasi_temu,
-            tv_tanggal_tour, tv_status_pemesanan, tv_waktu_tour;
+            tv_tanggal_tour, tv_status_pemesanan, tv_waktu_tour, tv_review_tour;
     ImageView iv_foto_tourguide;
     String id_tourguide, nama_tourguide, foto_tourguide, status_tourguide, id_pemesanan,
-            tanggal_tour, status_pemesanan, kota_tourguide, lokasi_temu, harga_tourguide, waktu_tour, notelp_tourguide, apiwa;
+            tanggal_tour, status_pemesanan, kota_tourguide, lokasi_temu, harga_tourguide, waktu_tour, notelp_tourguide, apiwa, review_tour;
+    EditText et_review_tour;
     private Button btnCancel;
     private Button btnChat;
+    private Button btnReview;
+    private Button btnReviewTour;
     AlertDialog.Builder builder;
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
 
@@ -56,6 +66,7 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         lokasi_temu = getIntent().getExtras().getString("lokasi_temu");
         waktu_tour = getIntent().getExtras().getString("waktu_tour");
         notelp_tourguide = getIntent().getExtras().getString("notelp_tourguide");
+        review_tour = getIntent().getExtras().getString("review_tour");
 
         apiwa = "https://api.whatsapp.com/send?phone=";
 
@@ -68,12 +79,29 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         tv_lokasi_temu.setText(lokasi_temu);
         tv_tanggal_tour.setText(tanggal_tour);
         tv_waktu_tour.setText(waktu_tour);
+        tv_review_tour.setText(review_tour);
 
-        if (!TextUtils.equals(tv_status_pemesanan.getText().toString(), "menunggu")) {
+        if (TextUtils.equals(tv_status_pemesanan.getText().toString(), "menunggu")) {
+            btnChat.setVisibility(View.GONE);
+            btnReview.setVisibility(View.GONE);
+        }
+        if (TextUtils.equals(tv_status_pemesanan.getText().toString(), "disetujui")) {
+            btnCancel.setVisibility(View.GONE);
+            btnReview.setVisibility(View.GONE);
+        }
+        if (TextUtils.equals(tv_status_pemesanan.getText().toString(), "selesai")) {
+            btnChat.setVisibility(View.GONE);
             btnCancel.setVisibility(View.GONE);
         }
-        if (!TextUtils.equals(tv_status_pemesanan.getText().toString(), "disetujui")) {
+        if (TextUtils.equals(tv_status_pemesanan.getText().toString(), "ditolak")) {
             btnChat.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+            btnReview.setVisibility(View.GONE);
+        }
+        if (TextUtils.equals(tv_status_pemesanan.getText().toString(), "dicancel")) {
+            btnChat.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+            btnReview.setVisibility(View.GONE);
         }
     }
 
@@ -97,6 +125,7 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
                                     e.printStackTrace();
                                 }
                             }
+
                             @Override
                             public void onFailure(Call<EditStatusPemesananResponse> call, Throwable t) {
                                 t.printStackTrace();
@@ -121,10 +150,96 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(i);
                 break;
+
+            case R.id.btn_review:
+                AlertDialog.Builder builderReview = new AlertDialog.Builder(this);
+                builderReview.setMessage("Review Tour Anda");
+                builderReview.setCancelable(false);
+
+                final EditText etReviewText = new EditText(this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                etReviewText.setLayoutParams(lp);
+                builderReview.setView(etReviewText);
+
+                builderReview.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, int which) {
+                        String review_tour = etReviewText.getText().toString();
+                        apiInterface.postReviewTour(review_tour, id_pemesanan).enqueue(new Callback<ReviewTourResponse>() {
+                            @Override
+                            public void onResponse(Call<ReviewTourResponse> call, Response<ReviewTourResponse> response) {
+                                try {
+                                    if(response.isSuccessful()){
+                                        Toast.makeText(DetailPemesananWisatawanActivity.this, "Review Berhasil Dibuat", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                        finish();
+                                    }
+
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ReviewTourResponse> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                });
+
+                builderReview.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog alertReview = builderReview.create();
+                alertReview.show();
+
+//                final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+//                LayoutInflater inflater = getLayoutInflater();
+//                View dialogView = inflater.inflate(R.layout.review_tour, null);
+//                dialog.setView(dialogView);
+//                dialog.setNegativeButton("tutup", null);
+//
+//                et_review_tour = dialogView.findViewById(R.id.et_review_tour);
+//                btnReviewTour = dialogView.findViewById(R.id.btn_review_tour);
+//
+//                dialog.show();
+//
+//                btnReviewTour.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        String review_tour = et_review_tour.getText().toString();
+//                        apiInterface.postReviewTour(id_pemesanan, review_tour).enqueue(new Callback<ReviewTourResponse>() {
+//                            @Override
+//                            public void onResponse(Call<ReviewTourResponse> call, Response<ReviewTourResponse> response) {
+//                                try {
+//                                    if (response.isSuccessful()) {
+//                                        Toast.makeText(DetailPemesananWisatawanActivity.this, "Review Berhasil Dibuat", Toast.LENGTH_SHORT).show();
+//                                        finish();
+//                                    }
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<ReviewTourResponse> call, Throwable t) {
+//                                t.printStackTrace();
+//                            }
+//                        });
+//                    }
+//                });
+
+                break;
         }
     }
 
     private void initView() {
+        tv_review_tour = findViewById(R.id.tv_review_tour);
         iv_foto_tourguide = findViewById(R.id.iv_foto_tourguide);
         tv_nama_tourguide = findViewById(R.id.tv_nama_tourguide);
         tv_kota_tourguide = findViewById(R.id.tv_kota_tourguide);
@@ -136,7 +251,10 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         tv_waktu_tour = findViewById(R.id.tv_waktu_tour);
         btnCancel = (Button) findViewById(R.id.btn_cancel);
         btnChat = (Button) findViewById(R.id.btn_chat);
+        btnReview = findViewById(R.id.btn_review);
+
         btnCancel.setOnClickListener(this);
         btnChat.setOnClickListener(this);
+        btnReview.setOnClickListener(this);
     }
 }
