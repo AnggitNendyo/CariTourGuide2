@@ -17,6 +17,7 @@ import d3ti.uns.anggit.caritourguide.model.PemesananWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.ProfilTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.ProfilWisatawanResponse;
 import d3ti.uns.anggit.caritourguide.model.RegisterWisatawanResponse;
+import d3ti.uns.anggit.caritourguide.model.ReportResponse;
 import d3ti.uns.anggit.caritourguide.model.ReviewTourResponse;
 import d3ti.uns.anggit.caritourguide.model.SearchTourguideResponse;
 import d3ti.uns.anggit.caritourguide.model.ServiceTourguideResponse;
@@ -151,5 +152,14 @@ public interface ApiInterface {
             @Field("review_tour") String reviewTour,
             @Field("id_pemesanan") String idPemesanan
     );
+
+    @FormUrlEncoded
+    @POST("report")
+    Call<ReportResponse> postReport(
+            @Field("email_wisatawan") String email_wisatawan,
+            @Field("deskripsi_report") String deskripsi_report,
+            @Field("id_tourguide") String id_tourguide
+    );
+
 
 }

@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import d3ti.uns.anggit.caritourguide.R;
 
 import static d3ti.uns.anggit.caritourguide.BuildConfig.BASE_URL;
@@ -20,13 +23,17 @@ public class DetailTourguideActivity extends AppCompatActivity implements View.O
             tv_bahasa_tourguide, tv_deskripsi_tourguide;
     ImageView iv_foto_tourguide;
     String id_tourguide, nama_tourguide, foto_tourguide, status_tourguide, alamat_tourguide, kota_tourguide, jenis_kelamin,
-            umur_tourguide, harga_tourguide, hari_tourguide, topik_tourguide, fasilitas_tourguide, bahasa_tourguide, deskripsi_tourguide;
+            umur_tourguide, hari_tourguide,harga_tourguide, topik_tourguide, fasilitas_tourguide, bahasa_tourguide, deskripsi_tourguide;
     Button btn_pesan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_tourguide);
+
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
         id_tourguide = getIntent().getExtras().getString("id_tourguide");
         nama_tourguide = getIntent().getExtras().getString("nama_tourguide");
         foto_tourguide = getIntent().getExtras().getString("foto_tourguide");
@@ -65,7 +72,7 @@ public class DetailTourguideActivity extends AppCompatActivity implements View.O
         tv_alamat_tourguide.setText(alamat_tourguide);
         tv_jenis_kelamin.setText(jenis_kelamin);
         tv_umur_tourguide.setText(umur_tourguide);
-        tv_harga_tourguide.setText(harga_tourguide);
+        tv_harga_tourguide.setText(formatRupiah.format(Double.parseDouble(harga_tourguide)));
         tv_hari_tourguide.setText(hari_tourguide);
         tv_fasilitas_tourguide.setText(fasilitas_tourguide);
         tv_topik_tourguide.setText(topik_tourguide);

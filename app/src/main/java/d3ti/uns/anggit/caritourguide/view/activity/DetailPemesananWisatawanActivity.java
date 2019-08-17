@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,7 +24,9 @@ import java.util.List;
 import d3ti.uns.anggit.caritourguide.R;
 import d3ti.uns.anggit.caritourguide.data.ApiInterface;
 import d3ti.uns.anggit.caritourguide.data.ApiService;
+import d3ti.uns.anggit.caritourguide.data.helper.SharedPrefManager;
 import d3ti.uns.anggit.caritourguide.model.EditStatusPemesananResponse;
+import d3ti.uns.anggit.caritourguide.model.ReportResponse;
 import d3ti.uns.anggit.caritourguide.model.ReviewTourItems;
 import d3ti.uns.anggit.caritourguide.model.ReviewTourResponse;
 import retrofit2.Call;
@@ -37,14 +40,14 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
             tv_tanggal_tour, tv_status_pemesanan, tv_waktu_tour, tv_review_tour;
     ImageView iv_foto_tourguide;
     String id_tourguide, nama_tourguide, foto_tourguide, status_tourguide, id_pemesanan,
-            tanggal_tour, status_pemesanan, kota_tourguide, lokasi_temu, harga_tourguide, waktu_tour, notelp_tourguide, apiwa, review_tour;
-    EditText et_review_tour;
+            tanggal_tour, status_pemesanan, kota_tourguide, lokasi_temu, harga_tourguide, waktu_tour, notelp_tourguide, apiwa, review_tour, deskripsi_report;
     private Button btnCancel;
     private Button btnChat;
     private Button btnReview;
-    private Button btnReviewTour;
+    private ImageButton btnReport;
     AlertDialog.Builder builder;
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
+    private SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         initView();
         builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
+        sharedPrefManager = new SharedPrefManager(this);
 
         id_pemesanan = getIntent().getExtras().getString("id_pemesanan");
         id_tourguide = getIntent().getExtras().getString("id_tourguide");
@@ -67,6 +71,8 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         waktu_tour = getIntent().getExtras().getString("waktu_tour");
         notelp_tourguide = getIntent().getExtras().getString("notelp_tourguide");
         review_tour = getIntent().getExtras().getString("review_tour");
+        deskripsi_report = getIntent().getExtras().getString("deskripsi_report");
+
 
         apiwa = "https://api.whatsapp.com/send?phone=";
 
@@ -169,71 +175,76 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
                             @Override
                             public void onResponse(Call<ReviewTourResponse> call, Response<ReviewTourResponse> response) {
                                 try {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         Toast.makeText(DetailPemesananWisatawanActivity.this, "Review Berhasil Dibuat", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                         finish();
                                     }
-
-                                } catch (Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<ReviewTourResponse> call, Throwable t) {
-
+                                t.printStackTrace();
                             }
                         });
                     }
                 });
-
                 builderReview.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-
                 AlertDialog alertReview = builderReview.create();
                 alertReview.show();
+                break;
 
-//                final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-//                LayoutInflater inflater = getLayoutInflater();
-//                View dialogView = inflater.inflate(R.layout.review_tour, null);
-//                dialog.setView(dialogView);
-//                dialog.setNegativeButton("tutup", null);
-//
-//                et_review_tour = dialogView.findViewById(R.id.et_review_tour);
-//                btnReviewTour = dialogView.findViewById(R.id.btn_review_tour);
-//
-//                dialog.show();
-//
-//                btnReviewTour.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        String review_tour = et_review_tour.getText().toString();
-//                        apiInterface.postReviewTour(id_pemesanan, review_tour).enqueue(new Callback<ReviewTourResponse>() {
-//                            @Override
-//                            public void onResponse(Call<ReviewTourResponse> call, Response<ReviewTourResponse> response) {
-//                                try {
-//                                    if (response.isSuccessful()) {
-//                                        Toast.makeText(DetailPemesananWisatawanActivity.this, "Review Berhasil Dibuat", Toast.LENGTH_SHORT).show();
-//                                        finish();
-//                                    }
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<ReviewTourResponse> call, Throwable t) {
-//                                t.printStackTrace();
-//                            }
-//                        });
-//                    }
-//                });
+            case R.id.ib_report:
+                AlertDialog.Builder builderReport = new AlertDialog.Builder(this);
+                builderReport.setMessage("Laporkan Masalah Anda");
+                builderReport.setCancelable(false);
 
+                final EditText etReportText = new EditText(this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                etReportText.setLayoutParams(layoutParams);
+                builderReport.setView(etReportText);
+
+                builderReport.setPositiveButton("Report", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialogReport, int which) {
+                        String deskripsi_report = etReportText.getText().toString();
+                        apiInterface.postReport(sharedPrefManager.getSpEmailUser(), deskripsi_report, id_tourguide ).enqueue(new Callback<ReportResponse>() {
+                            @Override
+                            public void onResponse(Call<ReportResponse> call, Response<ReportResponse> response) {
+                                try {
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(DetailPemesananWisatawanActivity.this, "Report Berhasil Dibuat", Toast.LENGTH_SHORT).show();
+                                        dialogReport.dismiss();
+                                        finish();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ReportResponse> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+                    }
+                });
+                builderReport.setNegativeButton("Tutup", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertReport = builderReport.create();
+                alertReport.show();
                 break;
         }
     }
@@ -252,9 +263,11 @@ public class DetailPemesananWisatawanActivity extends AppCompatActivity implemen
         btnCancel = (Button) findViewById(R.id.btn_cancel);
         btnChat = (Button) findViewById(R.id.btn_chat);
         btnReview = findViewById(R.id.btn_review);
+        btnReport = findViewById(R.id.ib_report);
 
         btnCancel.setOnClickListener(this);
         btnChat.setOnClickListener(this);
         btnReview.setOnClickListener(this);
+        btnReport.setOnClickListener(this);
     }
 }
