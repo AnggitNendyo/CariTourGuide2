@@ -4,6 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class PemesananItemT {
 
+	public String getReviewTourT() {
+		return reviewTourT;
+	}
+
+	public void setReviewTourT(String reviewTourT) {
+		this.reviewTourT = reviewTourT;
+	}
+
+	@SerializedName("review_tour")
+	private String reviewTourT;
 
 	@SerializedName("nama")
 	private String nama;

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,6 +38,7 @@ public class DetailPemesananTourguideActivity extends AppCompatActivity implemen
     private TextView tvTanggalTour;
     private TextView tvWaktuTour;
     private TextView tvStatusPemesanan;
+    private TextView tv_review_tour_t;
     private Button btnTolak;
     private Button btnSetuju;
     private Button btnSelesai;
@@ -44,7 +46,7 @@ public class DetailPemesananTourguideActivity extends AppCompatActivity implemen
     AlertDialog.Builder builder;
 
     String id_wisatawan, nama_wisatawan, lokasi_temu, status_pemesanan, harga_tourguide,
-            tanggal_tour, waktu_tour, foto_wisatawan, id_pemesanan, kota_tourguide, notelp_wisatawan, apiwa;
+            tanggal_tour, waktu_tour, foto_wisatawan, id_pemesanan, kota_tourguide, notelp_wisatawan, apiwa, review_tour_t;
 
     ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
 
@@ -67,7 +69,8 @@ public class DetailPemesananTourguideActivity extends AppCompatActivity implemen
         waktu_tour = getIntent().getExtras().getString("waktu_tour");
         harga_tourguide = getIntent().getExtras().getString("harga_tourguide");
         notelp_wisatawan = getIntent().getExtras().getString("notelp_wisatawan");
-
+        review_tour_t = getIntent().getExtras().getString("review_tour");
+        Log.d("review tour guide", review_tour_t);
         apiwa = "https://api.whatsapp.com/send?phone=";
 
         Glide.with(this).load(BASE_URL + "caritourguide/assets/img/foto_wisatawan/" + foto_wisatawan).into(ivFotoWisatawan);
@@ -78,6 +81,7 @@ public class DetailPemesananTourguideActivity extends AppCompatActivity implemen
         tvLokasiTemu.setText(lokasi_temu);
         tvTanggalTour.setText(tanggal_tour);
         tvWaktuTour.setText(waktu_tour);
+        tv_review_tour_t.setText(review_tour_t);
 
         if (TextUtils.equals(tvStatusPemesanan.getText().toString(), "menunggu")) {
             btnSelesai.setVisibility(View.GONE);
@@ -248,6 +252,7 @@ public class DetailPemesananTourguideActivity extends AppCompatActivity implemen
         tvTanggalTour = (TextView) findViewById(R.id.tv_tanggal_tour);
         tvWaktuTour = (TextView) findViewById(R.id.tv_waktu_tour);
         tvStatusPemesanan = (TextView) findViewById(R.id.tv_status_pemesanan);
+        tv_review_tour_t = findViewById(R.id.tv_review_tour_t);
         btnTolak = (Button) findViewById(R.id.btn_tolak_t);
         btnSetuju = (Button) findViewById(R.id.btn_setuju_t);
         btnSelesai = (Button) findViewById(R.id.btn_selesai_t);
