@@ -58,6 +58,8 @@ public class EditProfilWisatawanActivity extends AppCompatActivity implements Vi
     private ApiInterface apiInterface = ApiService.getClient().create(ApiInterface.class);
     SharedPrefManager sharedPrefManager;
 
+
+
     // DEKLARASI UPLOAD FOTO
     private static final int REQUEST_GALLERY_CODE = 200;
     private static final int READ_REQUEST_CODE = 300;
